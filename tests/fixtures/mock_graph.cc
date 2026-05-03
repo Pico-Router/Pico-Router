@@ -19,6 +19,7 @@ Graph createMockGraph(MockGraphType type) {
 
   switch (type) {
     case MockGraphType::TRIANGLE:
+      // note: nodes are missing x/y coordinates
       // NODE 0
       graph.edges[1] = {1, 10, 2};
       graph.edges[2] = {2, 20, 0};

@@ -19,7 +19,9 @@ struct Edge {
 };
 
 struct Node {
-  uint32_t first_edge_index;
+  int32_t x = 0;
+  int32_t y = 0;
+  uint32_t first_edge_index = 0;
 };
 
 struct Graph {

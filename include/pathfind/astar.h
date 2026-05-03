@@ -3,7 +3,7 @@
 #include <bitset>
 
 #include "graph.h"
-// #include "heuristic.h"
+#include "heuristic.h"
 #include "path.h"
 #include "priority_queue.h"
 
@@ -27,7 +27,6 @@ class Astar {
   PriorityQueue<MAX_NODES> open_list;
   std::bitset<MAX_NODES> closed_list;
   Path reconstructPath(node_id current, node_id start);
-  uint16_t heuristic(node_id neighbor_id, node_id goal_id);
 };
 
 }  // namespace pathfind
