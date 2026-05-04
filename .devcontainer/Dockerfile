@@ -16,7 +16,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN python3 -m pip install --no-cache-dir --upgrade pip \
-    && python3 -m pip install --no-cache-dir git+https://github.com/antmicro/renode-run robotframework
+    && python3 -m pip install --no-cache-dir git+https://github.com/antmicro/renode-run robotframework \
+    && python3 -m pip install --no-cache-dir -r ../tools/osm_converter/requirements.txt
 
 RUN python3 -m renode_run download
 
