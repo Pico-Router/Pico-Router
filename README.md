@@ -131,9 +131,10 @@ ctest --test-dir build --output-on-failure
 ## Roadmap
 
 - [x] Reproducible development environment
-- [ ] Harden preliminary A* implementation
-- [ ] Expand Renode simulation workflow
+- [x] Create preliminary A* implementation
+- [ ] Setup Renode simulation workflow
 - [x] Initial CI checks
+- [ ] Introduce prelminary OSM datapipeline
 - [ ] Finalize contribution rules and governance docs
 
 ## Contributing
