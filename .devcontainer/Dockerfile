@@ -18,7 +18,7 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.edge.kernel.org/g' /etc/apt/sources.lis
     libgtk2.0-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY tools/osm_converter/requirements.txt /tmp/osm-requirements.txt
+COPY tools/requirements.txt /tmp/osm-requirements.txt
 RUN python3 -m pip install --no-cache-dir --upgrade pip \
     && python3 -m pip install --no-cache-dir git+https://github.com/antmicro/renode-run robotframework \
     && python3 -m pip install --no-cache-dir -r /tmp/osm-requirements.txt

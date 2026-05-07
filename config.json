@@ -1,0 +1,6 @@
+{
+    "osm_pbf_path": "/workspaces/pico-router/tools/osm_converter/src/data/sample_map.osm.pbf",
+    "output_bin_path": "/workspaces/pico-router/tools/osm_converter/src/data/test_graph.bin",
+    "max_nodes": 10000,
+    "max_edges": 40000
+}
