@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "osm_converter"
+version = "0.1.0"
+dependencies = ["pyrosm", "cppyy"]
+
+[project.scripts]
+osm-convert = "main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["osm_converter*"]

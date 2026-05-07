@@ -1,3 +1,4 @@
+import json
 import ctypes
 import cppyy
 from typing import Dict
@@ -10,19 +11,24 @@ class GraphPacker:
     # Scale factor to turn float Lat/Lon into int32 space
     COORD_SCALE = 1e7
 
-    def __init__(self, max_nodes: int = 10000, max_edges: int = 20000):
-        self.max_nodes = max_nodes
-        self.max_edges = max_edges
-        # Single source of truth for the Graph instance
+    def __init__(self, config_path="/workspaces/pico-router/config.json"): # todo: replace with relative paths
+        with open(config_path, 'r') as f:
+            config = json.load(f)
+        
+        self.max_nodes = config["max_nodes"]
+        self.max_edges = config["max_edges"]
+        self.output_path = config["output_bin_path"]
+
+        cppyy.include("/workspaces/pico-router/include/pathfind/graph.h")
         self.graph = cppyy.gbl.pathfind.Graph()
         self._osm_to_local: Dict[int, int] = {}
 
-    def bake(self, nodes_df, edges_df, output_path: str):
+    def pack(self, nodes_df, edges_df):
         """Main entry point to transform and save the graph."""
         self._map_ids(nodes_df)
         self._populate_nodes(nodes_df)
         self._populate_edges(nodes_df, edges_df)
-        self._serialize(output_path)
+        self._serialize(self.output_path)
 
     def _map_ids(self, nodes_df):
         """Maps 64-bit OSM IDs to internal 0-indexed IDs."""
@@ -80,4 +86,4 @@ class GraphPacker:
         with open(output_path, "wb") as f:
             f.write(buffer)
         
-        print(f"✅ Success: {size} bytes written to {output_path}")
+        print(f"Success: {size} bytes written to {output_path}")
