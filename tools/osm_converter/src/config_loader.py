@@ -19,5 +19,8 @@ class ConfigLoader:
 
         config_path = project_root / config_name
 
-        with open(config_path, 'r') as f:
-            return json.load(f)
+        try:
+            with open(config_path, 'r') as f:
+                return json.load(f)
+        except FileNotFoundError as exc:
+            raise FileNotFoundError(f"Configuration file '{config_path}' not found.") from exc
