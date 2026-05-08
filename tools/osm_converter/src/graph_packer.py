@@ -1,7 +1,7 @@
-import json
 import ctypes
 import cppyy
 from typing import Dict
+from config_loader import ConfigLoader
 
 class GraphPacker:
     """
@@ -11,9 +11,8 @@ class GraphPacker:
     # Scale factor to turn float Lat/Lon into int32 space
     COORD_SCALE = 1e7
 
-    def __init__(self, config_path="/workspaces/pico-router/config.json"): # todo: replace with relative paths
-        with open(config_path, 'r') as f:
-            config = json.load(f)
+    def __init__(self, config_name="config.json"):
+        config = ConfigLoader.load_config(config_name)
         
         self.max_nodes = config["max_nodes"]
         self.max_edges = config["max_edges"]
