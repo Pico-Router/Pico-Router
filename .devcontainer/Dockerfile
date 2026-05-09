@@ -19,12 +19,15 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.edge.kernel.org/g' /etc/apt/sources.lis
     && rm -rf /var/lib/apt/lists/*
 
 COPY tools/requirements.txt /tmp/osm-requirements.txt
+COPY tools/osm_converter /tmp/osm_converter
 RUN printf "setuptools<81\nwheel<0.47\n" > /tmp/pip-constraints.txt \
     && python3 -m pip install --no-cache-dir --upgrade pip \
     && PIP_CONSTRAINT=/tmp/pip-constraints.txt PIP_BUILD_CONSTRAINT=/tmp/pip-constraints.txt \
        python3 -m pip install --no-cache-dir git+https://github.com/antmicro/renode-run robotframework \
     && PIP_CONSTRAINT=/tmp/pip-constraints.txt PIP_BUILD_CONSTRAINT=/tmp/pip-constraints.txt \
-       python3 -m pip install --no-cache-dir -r /tmp/osm-requirements.txt
+       python3 -m pip install --no-cache-dir -r /tmp/osm-requirements.txt \
+    && PIP_CONSTRAINT=/tmp/pip-constraints.txt PIP_BUILD_CONSTRAINT=/tmp/pip-constraints.txt \
+       python3 -m pip install --no-cache-dir /tmp/osm_converter
 
 RUN python3 -m renode_run download
 

@@ -9,3 +9,5 @@ python3 -m pip install -e .
 ```bash
 osm-convert
 ```
+
+*Note: In the project devcontainer, this tool is installed automatically from `pyproject.toml`.*
