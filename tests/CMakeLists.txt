@@ -8,7 +8,8 @@ FetchContent_MakeAvailable(googletest)
 add_executable(run_tests
   astar_test.cc
   path_test.cc
-  ../src/astar.cc
+
+  ../src/pathfind/astar.cc
 )
 
 target_include_directories(run_tests PRIVATE ../include)

@@ -1,5 +1,4 @@
-cppyy>=3.5.0
+cppyy
 setuptools
 jinja2>=3.1.6
-pyrobuf>=0.9.3
 pyrosm>=0.6.2
