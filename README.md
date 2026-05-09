@@ -134,15 +134,12 @@ ctest --test-dir build --output-on-failure
 - [x] Create preliminary A* implementation
 - [ ] Setup Renode simulation workflow
 - [x] Initial CI checks
-- [ ] Introduce prelminary OSM datapipeline
-- [ ] Finalize contribution rules and governance docs
+- [x] Introduce prelminary OSM datapipeline
+- [x] Finalize contribution rules and governance docs
 
 ## Contributing
 
-Contributions are welcome. Until a dedicated `CONTRIBUTING.md` is added, please:
-- Open an issue describing the problem or proposal first
-- Keep pull requests focused and small
-- Ensure local tests pass before submitting
+Contributions are welcome. Please review `CONTRIBUTING.md` before opening a pull request.
 
 ## License
 
