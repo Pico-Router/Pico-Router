@@ -1,4 +1,3 @@
 *.ipynb
 __pycache__
 *.egg-info
-sample_graph.bin
