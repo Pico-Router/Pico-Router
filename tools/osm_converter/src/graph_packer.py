@@ -33,6 +33,8 @@ class GraphPacker:
         """Maps 64-bit OSM IDs to internal 0-indexed IDs."""
         if len(nodes_df) > self.max_nodes:
             raise ValueError(f"Too many nodes: {len(nodes_df)} exceeds {self.max_nodes}")
+        elif len(nodes_df) > 65535:
+            raise ValueError(f"Too many nodes: {len(nodes_df)} exceeds unint16_t overflow limit")
         self._osm_to_local = {osm_id: i for i, osm_id in enumerate(nodes_df['id'])}
 
     def _populate_nodes(self, nodes_df):
@@ -66,7 +68,7 @@ class GraphPacker:
                 
                 # Access the C++ struct directly via cppyy
                 cpp_edge = self.graph.edges[edge_ptr]
-                cpp_edge.target_node_id = target_local
+                cpp_edge.target = target_local
                 cpp_edge.cost = int(edge['length'])
                 
                 # Linking logic
