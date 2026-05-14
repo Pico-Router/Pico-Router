@@ -115,6 +115,12 @@ cmake --build build --parallel
 ctest --test-dir build --output-on-failure
 ```
 
+## Renode Dev
+
+```bash
+python3 -m renode_run download # only before first time use
+```
+
 ## Repository Layout
 
 ```text
