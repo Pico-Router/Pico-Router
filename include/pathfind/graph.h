@@ -25,7 +25,6 @@ struct Node {
 };
 
 struct Graph {
-  graph_id id;
   std::array<Node, MAX_NODES> nodes{};
   std::array<Edge, MAX_EDGES> edges{};  // 0 index == terminator sentinel value
 

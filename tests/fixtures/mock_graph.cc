@@ -15,7 +15,6 @@ enum class MockGraphType {
 
 Graph createMockGraph(MockGraphType type) {
   Graph graph;
-  graph.id = static_cast<graph_id>(type);
 
   switch (type) {
     case MockGraphType::TRIANGLE:
@@ -41,6 +40,9 @@ Graph createMockGraph(MockGraphType type) {
       graph.nodes[0].first_edge_index = 0;
       // NODE 1
       graph.nodes[1].first_edge_index = 0;
+      break;
+
+    default:
       break;
   }
   return graph;

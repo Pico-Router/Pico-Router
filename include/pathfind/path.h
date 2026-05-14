@@ -3,6 +3,7 @@
 #include <stdint.h>
 
 #include <array>
+#include <ostream>
 
 #include "graph.h"
 
@@ -37,5 +38,21 @@ struct Path {
 
   void clear() { length = 0; }
 };
+
+// Demo util. Delete later!
+inline std::ostream& operator<<(std::ostream& os, const Path& path) {
+  if (path.length == 0) {
+    os << "Empty Path";
+    return os;
+  }
+
+  for (size_t i = 0; i < path.length; ++i) {
+    os << path.nodes[i];
+    if (i < path.length - 1) {
+      os << " -> ";  // Print a separator between nodes
+    }
+  }
+  return os;
+}
 
 }  // namespace pathfind

@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 include(CTest)
 
 # Add executable
-file(GLOB SOURCES "src/*.cc" "src/*.c")
+file(GLOB SOURCES "src/*.cc" "src/pathfind/*.cc")
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 # Include directories
