@@ -1,0 +1,11 @@
+using sysbus
+
+mach create "pico"
+
+machine LoadPlatformDescription @renode/pico.repl
+
+sysbus LoadELF @build/router.elf
+
+showAnalyzer uart
+
+start

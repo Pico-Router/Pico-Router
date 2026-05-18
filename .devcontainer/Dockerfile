@@ -16,6 +16,13 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.edge.kernel.org/g' /etc/apt/sources.lis
     wget \
     && rm -rf /var/lib/apt/lists/*
 
+RUN wget https://builds.renode.io/renode-latest.linux-portable.tar.gz \
+    -O /tmp/renode.tar.gz \
+    && mkdir -p /opt/renode \
+    && tar -xzf /tmp/renode.tar.gz -C /opt/renode --strip-components=1 \
+    && ln -s /opt/renode/renode /usr/local/bin/renode \
+    && rm /tmp/renode.tar.gz
+
 COPY tools/requirements.txt /tmp/osm-requirements.txt
 COPY tools/osm_converter /tmp/osm_converter
 RUN printf "setuptools<81\nwheel<0.47\n" > /tmp/pip-constraints.txt \

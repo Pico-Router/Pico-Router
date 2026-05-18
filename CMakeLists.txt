@@ -1,17 +1,25 @@
 cmake_minimum_required(VERSION 3.13)
 
+include($ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake)
+
 project(pico_router C CXX ASM)
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 17)
-include(CTest)
 
-# Add executable
-file(GLOB SOURCES "src/*.cc" "src/pathfind/*.cc")
-add_executable(${PROJECT_NAME} ${SOURCES})
+pico_sdk_init()
 
-# Include directories
-target_include_directories(${PROJECT_NAME} PRIVATE include)
+add_executable(router
+  src/main.cc
+  src/pathfind/astar.cc
+)
 
-if(BUILD_TESTING)
-  add_subdirectory(tests)
-endif()
+target_include_directories(router PRIVATE
+  include
+)
+
+target_link_libraries(router
+  pico_stdlib
+)
+
+pico_enable_stdio_uart(router 1)
+pico_enable_stdio_usb(router 0)
+
+pico_add_extra_outputs(router)

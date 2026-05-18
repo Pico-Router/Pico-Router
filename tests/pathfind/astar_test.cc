@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 
-#include "fixtures/mock_graph.cc"
+#include "../fixtures/mock_graph.cc"
 
 namespace pathfind {
 namespace {

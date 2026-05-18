@@ -6,8 +6,8 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 add_executable(run_tests
-  astar_test.cc
-  path_test.cc
+  pathfind/astar_test.cc
+  pathfind/path_test.cc
 
   ../src/pathfind/astar.cc
 )
