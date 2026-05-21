@@ -10,6 +10,7 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.edge.kernel.org/g' /etc/apt/sources.lis
     clang-format \
     gcc-arm-none-eabi \
     libnewlib-arm-none-eabi \
+    libstdc++-arm-none-eabi-newlib \
     python3-dev \
     python3-pip \
     git \
