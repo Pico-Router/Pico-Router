@@ -12,11 +12,6 @@ What is working today:
 - A* search core implemented with static-memory-oriented containers
 - CMake build and unit tests in local workflows and CI
 
-What is still in progress:
-- Broader routing feature completeness
-- Hardware integration and end-to-end embedded runtime behavior
-- Contributor and governance docs (`CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`)
-
 ## Why This Project
 
 `pico-router` explores whether useful offline routing can run on very low-power hardware for resilience-focused contexts such as disaster response. The long-term direction is inspired by the ecosystem around [Valhalla](https://github.com/valhalla/valhalla), adapted to fit microcontroller constraints.
@@ -54,7 +49,7 @@ This approach keeps the algorithm predictable for MCU environments while enablin
 - OLED display
 - IMU (Bosch BNO055)
 
-### Optional/future peripherals
+### Potential future peripherals
 - Buttons
 - LoRa radio
 - Fuel gauge
@@ -117,31 +112,15 @@ ctest --test-dir build --output-on-failure
 
 ## Renode Dev
 
+**Before first time use:**
 ```bash
-python3 -m renode_run download # only before first time use
+python3 -m renode_run download
 ```
 
-## Repository Layout
-
-```text
-.
-|-- include/pathfind/      # Graph, path, queue, A* interfaces
-|-- src/                   # A* implementation and demo traversal
-|-- tests/                 # GoogleTest-based unit tests
-|-- .devcontainer/         # Reproducible dev environment
-|-- .github/workflows/     # CI pipeline
-|-- CMakeLists.txt         # Root build configuration
-`-- LICENSE
+**Start Cortex-m33:**
+```bash
+renode renode/run.resc
 ```
-
-## Roadmap
-
-- [x] Reproducible development environment
-- [x] Create preliminary A* implementation
-- [ ] Setup Renode simulation workflow
-- [x] Initial CI checks
-- [x] Introduce prelminary OSM datapipeline
-- [x] Finalize contribution rules and governance docs
 
 ## Contributing
 
