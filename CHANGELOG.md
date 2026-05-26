@@ -2,7 +2,7 @@
 * Contributor demo
 * Benchmarking module
 
-## Release date: 2026-05-xx Pico Router 0.1.0
+## Release date: 2026-05-26 Pico Router 0.1.0
 * **Enhancements**
     * Docker devcontainer
     * Preliminary A* implementation
