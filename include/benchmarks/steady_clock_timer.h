@@ -1,5 +1,7 @@
 #include <chrono>
 
+namespace benchmarks {
+
 struct steady_clock_timer {
   using clock = std::chrono::steady_clock;
 
@@ -18,3 +20,4 @@ struct steady_clock_timer {
  private:
   clock::time_point start;
 };
+}  // namespace benchmarks
