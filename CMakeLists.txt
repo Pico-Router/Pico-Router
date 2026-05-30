@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.13)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON) 
 include($ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake)
+
 
 project(pico_router C CXX ASM)
 
@@ -9,6 +12,7 @@ pico_sdk_init()
 add_executable(router
   src/main.cc
   src/pathfind/astar.cc
+  platform/uart_pico.cc
   src/benchmarks/astar_bench.cc
 )
 
