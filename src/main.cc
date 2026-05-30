@@ -3,9 +3,7 @@
 
 int main() {
   stdio_init_all();
-  printf("Booted\n");
-  benchmarks::astar_bench bench;
-  (void)bench.compute();
-  printf("Program finished succesfully\n");
-  return 0;
+  benchmarks::astar_bench();
+  while (true) {
+  };
 }

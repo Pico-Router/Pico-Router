@@ -2,20 +2,32 @@
 
 #include <stdio.h>
 
+#include <string>
+
 #include "../tests/fixtures/mock_graphs.cc"
+#include "platform/uart.h"
 
 using namespace benchmarks;
 using namespace pathfind;
 
 summary astar_bench::compute() {
-  printf("Bench started\n");
-  Graph const bench_graph = createMockGraph(MockGraphType::TRIANGLE);
+  uart::write("Bench started\n");
+
   Astar router;
+
+  Graph const bench_graph = createMockGraph(MockGraphType::TRIANGLE);
+
   steady_clock_timer timer;
   Path route = router.calculatePath(bench_graph, 0, 2);
-  printf("Execution time was %llu nanoseconds.\n",
-         static_cast<unsigned long long>(timer.nanoSeconds()));
-  (void)route;
-  printf("Bench finished\n");
-  return summary{};
+  unsigned long long nano_time =
+      static_cast<unsigned long long>(timer.nanoSeconds());
+
+  uart::write("Execution time was ");
+  uart::write(std::to_string(nano_time));
+  uart::write(" nanoseconds.\n");
+
+  uart::write("Bench started\n");
+
+  summary s;
+  return s;
 }
