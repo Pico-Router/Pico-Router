@@ -11,7 +11,7 @@ using namespace benchmarks;
 using namespace pathfind;
 
 summary astar_bench::compute() {
-  uart::write("Bench started\n");
+  uart::write("Bench started.\n");
 
   Astar router;
 
@@ -26,7 +26,7 @@ summary astar_bench::compute() {
   uart::write(std::to_string(nano_time));
   uart::write(" nanoseconds.\n");
 
-  uart::write("Bench started\n");
+  uart::write("Bench finished.\n");
 
   summary s;
   return s;

@@ -2,42 +2,45 @@ cmake_minimum_required(VERSION 3.13)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON) 
-include($ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake)
 
+project(pico-router C CXX ASM)
 
-project(pico_router C CXX ASM)
+option(BUILD_PICO "Build for Raspberry Pi Pico" OFF)
 
-pico_sdk_init()
-
-add_executable(router
+set(COMMON_SOURCES
   src/main.cc
   src/pathfind/astar.cc
-  platform/uart_pico.cc
   src/benchmarks/astar_bench.cc
 )
 
-target_include_directories(router PRIVATE
-  include
-)
+if(BUILD_PICO)
 
-target_link_libraries(router
-  pico_stdlib
-)
+  include($ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake)
+  pico_sdk_init()
 
-target_compile_definitions(router PRIVATE
-  PICO_RUNTIME_SKIP_INIT_BOOTROM_RESET=1
-  PICO_RUNTIME_NO_INIT_BOOTROM_RESET=1
-  PICO_RUNTIME_SKIP_INIT_PER_CORE_BOOTROM_RESET=1
-  PICO_RUNTIME_NO_INIT_PER_CORE_BOOTROM_RESET=1
-  PICO_RUNTIME_SKIP_INIT_BOOTROM_LOCKING_ENABLE=1
-  PICO_BOOTROM_LOCKING_ENABLED=0
-  PICO_RUNTIME_SKIP_INIT_EARLY_RESETS=1
-  PICO_RUNTIME_SKIP_INIT_CLOCKS=1
-  PICO_RUNTIME_SKIP_INIT_POST_CLOCK_RESETS=1
-  PICO_RUNTIME_SKIP_INIT_PER_CORE_ENABLE_COPROCESSORS=1
-)
+  add_executable(router
+    ${COMMON_SOURCES}
+    platform/pico/init_pico.cc
+    platform/pico/uart_pico.cc
+  )
 
-pico_enable_stdio_uart(router 1)
-pico_enable_stdio_usb(router 0)
+  target_link_libraries(router
+    pico_stdlib
+  )
 
-pico_add_extra_outputs(router)
+  pico_enable_stdio_uart(router 0)
+  pico_enable_stdio_usb(router 1)
+
+  pico_add_extra_outputs(router)
+
+else()
+
+  add_executable(router
+    ${COMMON_SOURCES}
+    platform/host/init_host.cc
+    platform/host/uart_host.cc
+  )
+
+endif()
+
+target_include_directories(router PRIVATE include)

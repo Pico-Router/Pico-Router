@@ -1,9 +1,12 @@
+#include <iostream>
+
 #include "benchmarks/astar_bench.h"
-#include "pico/stdlib.h"
+#include "platform/init.h"
 
 int main() {
-  stdio_init_all();
-  benchmarks::astar_bench();
+  platform_init();
+  benchmarks::astar_bench b;
+  b.compute();
   while (true) {
   };
 }

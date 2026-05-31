@@ -1,0 +1,1 @@
+void platform_init();
