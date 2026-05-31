@@ -3,9 +3,13 @@ cmake_minimum_required(VERSION 3.13)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON) 
 
-project(pico-router C CXX ASM)
-
 option(BUILD_PICO "Build for Raspberry Pi Pico" OFF)
+
+if(BUILD_PICO)
+  include($ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake)
+endif()
+
+project(pico-router C CXX ASM)
 
 set(COMMON_SOURCES
   src/main.cc
@@ -15,7 +19,6 @@ set(COMMON_SOURCES
 
 if(BUILD_PICO)
 
-  include($ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake)
   pico_sdk_init()
 
   add_executable(router

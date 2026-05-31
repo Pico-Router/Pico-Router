@@ -20,9 +20,25 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Debug toolchain
+        run: |
+          docker run --rm dev-image:latest bash -c "
+            which arm-none-eabi-gcc
+            arm-none-eabi-gcc --version
+
+            which arm-none-eabi-as
+            arm-none-eabi-as --version
+          "
+
       - name: Build and Run Tests
         run: |
           docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace dev-image:latest \
-          bash -c "cmake -S . -B build -DBUILD_TESTING=ON && \
+          bash -c "cmake -S . -B build -DBUILD_TESTING=ON -DBUILD_PICO=OFF && \
                   cmake --build build --parallel $(nproc) && \
                   ctest --test-dir build --output-on-failure"
+      
+      - name: Build Pico Firmware
+        run: |
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace dev-image:latest \
+          bash -c "cmake -S . -B build-pico -DBUILD_PICO=ON && \
+            cmake --build build-pico --parallel \$(nproc)"
