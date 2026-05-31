@@ -69,18 +69,19 @@ Then reopen the repository in the container with your editor's Dev Containers wo
 Set `PICO_SDK_PATH` to your local Pico SDK checkout, then build:
 
 ```bash
-cmake -S . -B build
-cmake --build build
+cmake -S . -B build-pico -DBUILD_PICO=ON
+cmake --build build-pico
 ```
 
 The build produces `build/router.elf` and `build/router.uf2`.
 
-## Running in Renode
+## Host Build
 
 The Renode script loads the firmware ELF directly:
 
 ```bash
-renode renode/run.resc
+cmake -S . -B build-host
+cmake --build build-host
 ```
 
 That script expects `build/router.elf` to exist first.
