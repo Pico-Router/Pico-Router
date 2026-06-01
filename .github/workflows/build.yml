@@ -20,16 +20,6 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Debug toolchain
-        run: |
-          docker run --rm dev-image:latest bash -c "
-            which arm-none-eabi-gcc
-            arm-none-eabi-gcc --version
-
-            which arm-none-eabi-as
-            arm-none-eabi-as --version
-          "
-
       - name: Build and Run Tests
         run: |
           docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace dev-image:latest \
