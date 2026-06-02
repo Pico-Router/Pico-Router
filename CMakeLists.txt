@@ -23,7 +23,7 @@ if(BUILD_PICO)
 
   add_executable(router
     ${COMMON_SOURCES}
-    platform/pico/init_pico.cc
+    platform/pico/system_init_pico.cc
     platform/pico/uart_pico.cc
   )
 
@@ -40,7 +40,7 @@ else()
 
   add_executable(router
     ${COMMON_SOURCES}
-    platform/host/init_host.cc
+    platform/host/system_init_host.cc
     platform/host/uart_host.cc
   )
 

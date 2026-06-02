@@ -16,7 +16,7 @@ void astar_bench::compute(System& global_system) {
   uart::write("Bench started.\n");
 
   // setup
-  Graph const bench_graph = createMockGraph(MockGraphType::TRIANGLE);
+  Graph const& bench_graph = createMockGraph(MockGraphType::TRIANGLE);
   steady_clock_timer timer;
   static uint64_t samples[sample_size];
 
@@ -41,5 +41,5 @@ void astar_bench::compute(System& global_system) {
 
   printf("Min execution time: %llu ns\n", (unsigned long long)min_time);
   printf("Max execution time: %llu ns\n", (unsigned long long)max_time);
-  printf("Average execution time: %.2f ns\n", average_time);
+  printf("Average execution time: %llu ns\n", (unsigned long long)average_time);
 }

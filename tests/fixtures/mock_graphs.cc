@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "pathfind/graph.h"
 
 namespace pathfind {
@@ -13,8 +15,8 @@ enum class MockGraphType {
   FULL_BUFFER
 };
 
-Graph createMockGraph(MockGraphType type) {
-  Graph graph;
+Graph const& createMockGraph(MockGraphType type) {
+  static Graph graph{};
 
   switch (type) {
     case MockGraphType::TRIANGLE:
