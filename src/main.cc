@@ -8,6 +8,7 @@ int main() {
   System global_system;
   benchmarks::astar_bench b;
   while (true) {
+    platform_sleep_ms(3000);
     b.compute(global_system);
   };
 }
