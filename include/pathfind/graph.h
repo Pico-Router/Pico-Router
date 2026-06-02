@@ -9,8 +9,8 @@ namespace pathfind {
 using graph_id = uint16_t;
 using node_id = uint32_t;
 
-static constexpr size_t MAX_NODES = 10000;
-static constexpr size_t MAX_EDGES = 40000;
+static constexpr size_t MAX_NODES = 1000;
+static constexpr size_t MAX_EDGES = 4000;
 
 struct Edge {
   uint16_t target;
