@@ -1,19 +1,10 @@
-#pragma once
+#include "fixtures/mock_graphs.h"
 
 #include <memory>
 
 #include "pathfind/graph.h"
 
 namespace pathfind {
-
-// todo: add remaining mocktypes
-enum class MockGraphType {
-  TRIANGLE,
-  DIAMOND,
-  DISCONNECTED,
-  GRID_5X5,
-  FULL_BUFFER
-};
 
 Graph const& createMockGraph(MockGraphType type) {
   static Graph graph{};

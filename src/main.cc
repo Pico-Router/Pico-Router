@@ -6,9 +6,9 @@
 int main() {
   platform_init();
   System global_system;
-  benchmarks::astar_bench b;
+  benchmarks::astar_bench b(global_system);
   while (true) {
     platform_sleep_ms(3000);
-    b.compute(global_system);
+    b.compute();
   };
 }
