@@ -16,6 +16,7 @@ set(COMMON_SOURCES
   src/pathfind/astar.cc
   src/benchmarks/astar_bench.cc
   src/fixtures/mock_graphs.cc
+  src/demo/astar_demo.cc
 )
 
 if(BUILD_PICO)

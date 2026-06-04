@@ -1,14 +1,15 @@
 #include <iostream>
 
 #include "benchmarks/astar_bench.h"
+#include "demo/astar_demo.h"
 #include "platform/system_init.h"
 
 int main() {
   platform_init();
   System global_system;
-  benchmarks::astar_bench b(global_system);
+  demo::astar_demo main_demo;
   while (true) {
-    platform_sleep_ms(3000);
-    b.compute();
+    platform_sleep_ms(1000);
+    main_demo.run(global_system);
   };
 }
