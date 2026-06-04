@@ -84,6 +84,12 @@ cmake -S . -B build-host
 cmake --build build-host
 ```
 
+Run locally:
+
+```bash
+./build-host/router
+```
+
 That script expects `build/router.elf` to exist first.
 
 ## OSM Converter

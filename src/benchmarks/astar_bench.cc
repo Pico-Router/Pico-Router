@@ -11,16 +11,21 @@
 using namespace benchmarks;
 
 void astar_bench::compute() {
-  uart::write("Bench started.\n");
-
   TimeResults results{};
   results = time();
 
-  uart::write("Bench finished.\n");
-
-  printf("Min execution time: %llu ns\n", (unsigned long long)results.min_time);
-  printf("Max execution time: %llu ns\n", (unsigned long long)results.max_time);
-  printf("Average execution time: %llu ns\n",
+  printf("BENCHMARK RESULTS:");
+  printf(R"(
+╔═══════════╦═════════════╗
+║ Exc. Time ║ Nanoseconds ║
+╠═══════════╬═════════════╣
+║ Min       ║ %-11llu ║
+║ Max       ║ %-11llu ║
+║ Avg       ║ %-11llu ║
+╚═══════════╩═════════════╝
+)",
+         (unsigned long long)results.min_time,
+         (unsigned long long)results.max_time,
          (unsigned long long)results.average_time);
 }
 

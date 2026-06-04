@@ -8,8 +8,9 @@ int main() {
   platform_init();
   System global_system;
   demo::astar_demo main_demo;
+  main_demo.run(global_system);
+
   while (true) {
     platform_sleep_ms(1000);
-    main_demo.run(global_system);
   };
 }
