@@ -5,6 +5,10 @@
 #include "benchmarks/astar_bench.h"
 #include "platform/uart.h"
 
+#ifndef LATEST_VERSION
+#define LATEST_VERSION "v0.0.0-local"
+#endif
+
 void demo::astar_demo::run(System& system) {
   print_header();
   benchmarks::astar_bench b(system);
@@ -25,5 +29,9 @@ void demo::astar_demo::print_header() {
 
   uart::write(main_header);
   uart::write("\n");
-  uart::write("Created and maintained by Victor Yanson\n");
+  uart::write("Version: " LATEST_VERSION
+              " | Created and maintained by Victor Yanson\n");
+
+  // blank line
+  uart::write("\n");
 };

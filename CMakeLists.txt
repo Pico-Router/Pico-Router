@@ -49,3 +49,18 @@ else()
 endif()
 
 target_include_directories(router PRIVATE include)
+
+# latest version macro
+execute_process(
+  COMMAND git describe --tags --abbrev=0
+  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+  OUTPUT_VARIABLE GIT_VERSION
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+  ERROR_QUIET
+)
+
+if(NOT GIT_VERSION)
+  set(GIT_VERSION "v0.0.0-unknown")
+endif()
+
+target_compile_definitions(router PRIVATE LATEST_VERSION="${GIT_VERSION}")
