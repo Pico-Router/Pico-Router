@@ -8,6 +8,8 @@ int main() {
   platform_init();
   System global_system;
   demo::astar_demo main_demo;
+
+  await_input();
   main_demo.run(global_system);
 
   while (true) {
