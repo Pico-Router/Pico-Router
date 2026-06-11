@@ -1,8 +1,9 @@
 export default defineAppConfig({
   ui: {
     colors: {
-      primary: 'green',
-      neutral: 'slate'
+      primary: 'rose',
+      neutral: 'mauve',
+      success: 'pink'
     },
     footer: {
       slots: {
@@ -12,7 +13,7 @@ export default defineAppConfig({
     }
   },
   seo: {
-    siteName: 'Nuxt Docs Template'
+    siteName: 'Pico Router'
   },
   header: {
     title: '',
