@@ -95,15 +95,6 @@ const links = computed(() => {
             class="hidden lg:block space-y-6"
             :class="{ 'mt-6!': page.body?.toc?.links?.length }"
           >
-            <USeparator
-              v-if="page.body?.toc?.links?.length"
-              type="dashed"
-            />
-
-            <UPageLinks
-              :title="toc.bottom.title"
-              :links="links"
-            />
           </div>
         </template>
       </UContentToc>
