@@ -1,6 +1,6 @@
 ---
 seo:
-  title: Nuxt Docs Template
+  title: Pico Router
   description: Create stunning, fast and SEO-optimized documentation sites with Nuxt UI.
 ---
 
