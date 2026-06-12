@@ -9,7 +9,8 @@
             "extensions": [
                 "ms-vscode.cpptools",
                 "ms-python.python",
-                "ms-python.vscode-pylance"
+                "ms-python.vscode-pylance",
+                "ms-vscode.cmake-tools"
             ],
             "settings": {
                 "editor.formatOnSave": true,

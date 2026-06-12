@@ -1,4 +1,5 @@
 # Pico Router
+
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 Pico Router is a low-power, offline routing prototype for the Raspberry Pi Pico 2. The repository contains the firmware target, a fixed-size pathfinding core, a Python tool for packing OpenStreetMap data into a binary graph, and simulation assets for Renode.

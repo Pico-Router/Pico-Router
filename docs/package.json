@@ -19,14 +19,15 @@
     "@nuxt/ui": "^4.8.2",
     "@nuxtjs/mcp-toolkit": "^0.17.2",
     "@nuxtjs/mdc": "^0.22.0",
-    "@vueuse/core": "^14.3.0",
     "@takumi-rs/core": "^1.7.0",
-
+    "@tresjs/core": "^5.8.1",
+    "@vueuse/core": "^14.3.0",
     "minimark": "^0.2.0",
     "nuxt": "^4.4.8",
     "nuxt-llms": "0.2.0",
     "nuxt-og-image": "^6.5.2",
     "tailwindcss": "^4.3.0",
+    "three": "^0.184.0",
     "ufo": "^1.6.4",
     "unist-util-visit": "^5.1.0",
     "zod": "^4.4.3"
