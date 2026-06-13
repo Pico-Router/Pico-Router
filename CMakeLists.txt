@@ -25,8 +25,8 @@ if(BUILD_PICO)
 
   add_executable(router
     ${COMMON_SOURCES}
-    platform/pico/system_init_pico.cc
-    platform/pico/uart_pico.cc
+    src/platform/pico/system_init_pico.cc
+    src/platform/pico/uart_pico.cc
   )
 
   target_link_libraries(router
@@ -42,8 +42,8 @@ else()
 
   add_executable(router
     ${COMMON_SOURCES}
-    platform/host/system_init_host.cc
-    platform/host/uart_host.cc
+    src/platform/host/system_init_host.cc
+    src/platform/host/uart_host.cc
   )
 
 endif()
