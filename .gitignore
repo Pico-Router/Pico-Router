@@ -3,3 +3,4 @@
 .DS_Store
 .venv
 sample_graph.bin
+.mypy_cache
