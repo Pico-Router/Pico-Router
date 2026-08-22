@@ -6,16 +6,13 @@
 
 namespace pathfind {
 
-using graph_id = uint16_t;
-using node_id = uint32_t;
-
 static constexpr size_t MAX_NODES = 1000;
 static constexpr size_t MAX_EDGES = 4000;
 
 struct Edge {
   uint16_t target;
   uint16_t cost;
-  uint32_t next_edge_index;
+  uint16_t next_edge_index;
 };
 
 struct Node {
@@ -28,9 +25,9 @@ struct Graph {
   std::array<Node, MAX_NODES> nodes{};
   std::array<Edge, MAX_EDGES> edges{};  // 0 index == terminator sentinel value
 
-  const Node* getNode(node_id id) const {
-    if (id < nodes.size()) {
-      return &nodes[id];
+  const Node* getNode(uint32_t node_id) const {
+    if (node_id < nodes.size()) {
+      return &nodes[node_id];
     }
     return nullptr;
   }

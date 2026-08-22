@@ -20,7 +20,6 @@ class Astar {
 
  private:
   std::array<node_id, MAX_NODES> gScore;
-  std::array<node_id, MAX_NODES> fScore;
 
   std::array<node_id, MAX_NODES>
       came_from_list;  // todo: add no parent sentinal

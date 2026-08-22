@@ -13,7 +13,6 @@ Path Astar::calculatePath(const Graph& graph, node_id start_id,
   open_list.clear();
   closed_list.reset();
   gScore.fill(INT32_MAX);
-  fScore.fill(INT32_MAX);
 
   gScore[start_id] = 0;
 
@@ -55,9 +54,9 @@ Path Astar::calculatePath(const Graph& graph, node_id start_id,
       if (tentative_g < gScore[neighbor_id]) {
         came_from_list[neighbor_id] = current.id;
         gScore[neighbor_id] = tentative_g;
-        fScore[neighbor_id] =
-            tentative_g + euclidean_heuristic(graph, neighbor_id, goal_id);
-        open_list.add(neighbor_id, fScore[neighbor_id]);
+        int32_t tentative_f =
+          tentative_g + euclidean_heuristic(graph, neighbor_id, goal_id);
+        open_list.add(neighbor_id, tentative_f);
       }
 
       edge_index = edge.next_edge_index;
