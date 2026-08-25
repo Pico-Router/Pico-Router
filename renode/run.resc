@@ -2,10 +2,10 @@ using sysbus
 
 mach create "pico"
 
-machine LoadPlatformDescription @renode/pico.repl
+machine LoadPlatformDescription @renode/artifacts/rp2350_m33.repl
 
-sysbus LoadELF @build/router.elf
+sysbus LoadELF @build-pico/router.elf
 
-showAnalyzer uart
+showAnalyzer uart0
 
 start
