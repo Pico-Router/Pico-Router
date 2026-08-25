@@ -1,8 +1,8 @@
-#include <stdio.hpp>
+#include <stdio.h>
 
 #include <string_view>
 
-#include "pico/stdlib.hpp"
+#include "pico/stdlib.h"
 #include "platform/uart.hpp"
 
 void uart::write(std::string_view msg) {
