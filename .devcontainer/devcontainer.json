@@ -1,9 +1,8 @@
 {
     "name": "Pico Router Dev",
-    "image": "pico-router-dev:latest",
-    "runArgs": [
-        "--platform=linux/amd64"
-    ],
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
     "customizations": {
         "vscode": {
             "extensions": [
