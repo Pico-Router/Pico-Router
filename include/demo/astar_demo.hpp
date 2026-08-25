@@ -1,7 +1,7 @@
 #include <string_view>
 
-#include "benchmarks/astar_bench.h"
-#include "platform/uart.h"
+#include "benchmarks/astar_bench.hpp"
+#include "platform/uart.hpp"
 
 namespace demo {
 

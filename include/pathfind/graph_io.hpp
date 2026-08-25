@@ -17,7 +17,7 @@
 #include <type_traits>
 #include <vector>
 
-#include "pathfind/graph.h"
+#include "pathfind/graph.hpp"
 
 namespace pathfind {
 

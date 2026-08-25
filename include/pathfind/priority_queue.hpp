@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-#include "graph.h"
+#include "graph.hpp"
 
 namespace pathfind {
 

@@ -1,6 +1,6 @@
-#include "pathfind/path.h"
+#include "pathfind/path.hpp"
 
-#include <gtest/gtest.h>
+#include <gtest/gtest.hpp>
 
 namespace pathfind {
 namespace {

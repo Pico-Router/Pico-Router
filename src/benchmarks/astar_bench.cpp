@@ -1,4 +1,4 @@
-#include "benchmarks/astar_bench.h"
+#include "benchmarks/astar_bench.hpp"
 
 #include <stdio.h>
 
@@ -6,7 +6,7 @@
 #include <numeric>
 #include <string>
 
-#include "platform/uart.h"
+#include "platform/uart.hpp"
 
 using namespace benchmarks;
 

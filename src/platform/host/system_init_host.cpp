@@ -2,7 +2,7 @@
 #include <iostream>
 #include <thread>
 
-#include "platform/system_init.h"
+#include "platform/system_init.hpp"
 
 pathfind::Astar System::router_;
 

@@ -12,11 +12,11 @@ endif()
 project(pico-router C CXX ASM)
 
 set(COMMON_SOURCES
-  src/main.cc
-  src/pathfind/astar.cc
-  src/benchmarks/astar_bench.cc
-  src/fixtures/mock_graphs.cc
-  src/demo/astar_demo.cc
+  src/main.cpp
+  src/pathfind/astar.cpp
+  src/benchmarks/astar_bench.cpp
+  src/fixtures/mock_graphs.cpp
+  src/demo/astar_demo.cpp
 )
 
 if(BUILD_PICO)
@@ -25,8 +25,8 @@ if(BUILD_PICO)
 
   add_executable(router
     ${COMMON_SOURCES}
-    src/platform/pico/system_init_pico.cc
-    src/platform/pico/uart_pico.cc
+    src/platform/pico/system_init_pico.cpp
+    src/platform/pico/uart_pico.cpp
   )
 
   target_link_libraries(router
@@ -42,8 +42,8 @@ else()
 
   add_executable(router
     ${COMMON_SOURCES}
-    src/platform/host/system_init_host.cc
-    src/platform/host/uart_host.cc
+    src/platform/host/system_init_host.cpp
+    src/platform/host/uart_host.cpp
   )
 
 endif()

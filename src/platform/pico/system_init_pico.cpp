@@ -1,6 +1,6 @@
-#include "pico/stdlib.h"
-#include "platform/system_init.h"
-#include "platform/uart.h"
+#include "pico/stdlib.hpp"
+#include "platform/system_init.hpp"
+#include "platform/uart.hpp"
 
 pathfind::Astar System::router_;
 

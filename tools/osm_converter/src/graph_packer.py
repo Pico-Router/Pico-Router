@@ -18,7 +18,7 @@ class GraphPacker:
         self.max_edges = config["max_edges"]
         self.output_path = config["output_bin_path"]
 
-        cppyy.include("/workspaces/pico-router/include/pathfind/graph.h")
+        cppyy.include("/workspaces/pico-router/include/pathfind/graph.hpp")
         self.graph = cppyy.gbl.pathfind.Graph()
         self._osm_to_local: Dict[int, int] = {}
 

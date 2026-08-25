@@ -1,8 +1,8 @@
-#include "pathfind/astar.h"
+#include "pathfind/astar.hpp"
 
-#include <gtest/gtest.h>
+#include <gtest/gtest.hpp>
 
-#include "../fixtures/mock_graphs.cc"
+#include "../fixtures/mock_graphs.cpp"
 
 namespace pathfind {
 namespace {

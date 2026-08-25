@@ -1,9 +1,9 @@
-#include "demo/astar_demo.h"
+#include "demo/astar_demo.hpp"
 
 #include <string_view>
 
-#include "benchmarks/astar_bench.h"
-#include "platform/uart.h"
+#include "benchmarks/astar_bench.hpp"
+#include "platform/uart.hpp"
 
 #ifndef LATEST_VERSION
 #define LATEST_VERSION "v0.0.0-local"

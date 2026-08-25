@@ -2,10 +2,10 @@
 
 #include <cstdint>
 
-#include "fixtures/mock_graphs.h"
-#include "pathfind/graph.h"
-#include "platform/system_init.h"
-#include "steady_clock_timer.h"
+#include "fixtures/mock_graphs.hpp"
+#include "pathfind/graph.hpp"
+#include "platform/system_init.hpp"
+#include "steady_clock_timer.hpp"
 
 namespace benchmarks {
 

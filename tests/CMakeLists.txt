@@ -6,10 +6,10 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 add_executable(run_tests
-  pathfind/astar_test.cc
-  pathfind/path_test.cc
+  pathfind/astar_test.cpp
+  pathfind/path_test.cpp
 
-  ../src/pathfind/astar.cc
+  ../src/pathfind/astar.cpp
 )
 
 target_include_directories(run_tests PRIVATE ../include)

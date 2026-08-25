@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "benchmarks/astar_bench.h"
-#include "demo/astar_demo.h"
-#include "platform/system_init.h"
+#include "benchmarks/astar_bench.hpp"
+#include "demo/astar_demo.hpp"
+#include "platform/system_init.hpp"
 
 int main() {
   platform_init();

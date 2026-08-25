@@ -1,8 +1,8 @@
-#include "fixtures/mock_graphs.h"
+#include "fixtures/mock_graphs.hpp"
 
 #include <memory>
 
-#include "pathfind/graph.h"
+#include "pathfind/graph.hpp"
 
 namespace pathfind {
 

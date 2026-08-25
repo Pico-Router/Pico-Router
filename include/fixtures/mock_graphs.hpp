@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pathfind/graph.h"
+#include "pathfind/graph.hpp"
 
 namespace pathfind {
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pathfind/astar.h"
+#include "pathfind/astar.hpp"
 
 void platform_init();
 
