@@ -1,24 +1,26 @@
 # stage 1
-ARG RENODE_DEST_BUILDER=/opt/renode/
-ARG RENODE_VERSION=1.16.1
-ARG RENODE_URL=https://github.com/renode/renode/releases/download/v${RENODE_VERSION}/renode-${RENODE_VERSION}.linux-dotnet.tar.gz
-
 FROM ubuntu:24.04 AS renode-downloader
 
-ARG RENODE_URL
+ARG TARGETARCH
+ARG RENODE_VERSION=1.16.1
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends sudo ca-certificates wget
+    apt-get install -y --no-install-recommends ca-certificates wget
 
-RUN wget ${RENODE_URL} -O /opt/renode.tar.gz
+RUN if [ "$TARGETARCH" = "arm64" ]; then \
+        RENODE_ARCH="linux-arm64-portable-dotnet"; \
+    else \
+        RENODE_ARCH="linux-dotnet"; \
+    fi && \
+    wget https://github.com/renode/renode/releases/download/v${RENODE_VERSION}/renode-${RENODE_VERSION}.${RENODE_ARCH}.tar.gz -O /opt/renode.tar.gz
 
-RUN tar -vxf /opt/renode.tar.gz -C /opt
+RUN mkdir -p /opt/renode-extracted && \
+    tar -xf /opt/renode.tar.gz -C /opt/renode-extracted --strip-components=1
 
 # stage 2
 FROM mcr.microsoft.com/devcontainers/base:jammy
 LABEL org.opencontainers.image.source="https://github.com/dodancs/pico-sdk-dev-container"
 
-ARG RENODE_VERSION=1.16.1
 ARG RENODE_DEST_BUILDER=/opt/renode
 
 ENV PICO_SDK_VERSION=1.5.0
@@ -38,6 +40,6 @@ RUN git clone -b ${PICO_SDK_VERSION} https://github.com/raspberrypi/pico-sdk.git
     && cd /opt/pico-sdk/build \
     && cmake ..
 
-COPY --from=renode-downloader /opt/renode_${RENODE_VERSION}--dotnet/ ${RENODE_DEST_BUILDER}
+COPY --from=renode-downloader /opt/renode-extracted ${RENODE_DEST_BUILDER}
 
 ENV PATH="${PATH}:${RENODE_DEST_BUILDER}"
