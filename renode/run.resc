@@ -1,11 +1,11 @@
-using sysbus
+path add @third_party/Renode_RP2040
 
-mach create "pico"
-
-machine LoadPlatformDescription @renode/artifacts/rp2350_m33.repl
+include @boards/initialize_raspberry_pico.resc
 
 sysbus LoadELF @build-pico/router.elf
 
-showAnalyzer uart0
+cpu0 PC 0x100001E9
+
+showAnalyzer sysbus.uart0
 
 start
