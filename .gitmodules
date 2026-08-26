@@ -1,0 +1,3 @@
+[submodule "third_party/Renode_RP2040"]
+	path = third_party/Renode_RP2040
+	url = https://github.com/matgla/Renode_RP2040.git
