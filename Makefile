@@ -1,4 +1,4 @@
-.PHONY: build build-pico build-host clean
+.PHONY: build build-pico build-host clean renode
 
 build: build-pico
 
@@ -12,3 +12,6 @@ build-host:
 
 clean:
 	rm -rf build-pico build-host
+
+renode:
+	renode --console renode/run.resc
