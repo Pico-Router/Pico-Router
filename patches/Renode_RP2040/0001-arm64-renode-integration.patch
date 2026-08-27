@@ -1,0 +1,28 @@
+diff --git a/cores/load_peripherals.py b/cores/load_peripherals.py
+index 357fbd5..6153d25 100644
+--- a/cores/load_peripherals.py
++++ b/cores/load_peripherals.py
+@@ -27,7 +27,7 @@ peripherals_dll = os.path.normpath(
+         "emulation",
+         "bin",
+         "Release",
+-        "netstandard2.1",
++        "net8.0",
+         "Peripherals.dll",
+     )
+ )
+diff --git a/emulation/Peripherals.csproj b/emulation/Peripherals.csproj
+index c1707a2..b4d29a1 100644
+--- a/emulation/Peripherals.csproj
++++ b/emulation/Peripherals.csproj
+@@ -1,8 +1,8 @@
+ <Project Sdk="Microsoft.NET.Sdk">
+ 
+   <PropertyGroup>
+-    <TargetFramework>netstandard2.1</TargetFramework>
+-    <PlatformTarget>x64</PlatformTarget>
++    <TargetFramework>net8.0</TargetFramework>
++    <PlatformTarget>AnyCPU</PlatformTarget>
+     <RenodePath>/opt/renode/bin</RenodePath>
+     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+   </PropertyGroup>
