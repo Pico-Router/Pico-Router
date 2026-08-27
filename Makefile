@@ -1,4 +1,4 @@
-.PHONY: build build-pico build-host run clean renode
+.PHONY: build build-pico build-host run clean renode container
 
 build: build-pico
 
@@ -18,3 +18,6 @@ clean:
 
 renode:
 	renode --console renode/run.resc
+
+container:
+	bash .devcontainer/setup.sh
