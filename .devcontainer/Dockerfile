@@ -33,7 +33,9 @@ RUN mkdir -p /var/cache/apt/archives/partial \
     cmake \
     ninja-build \
     gcc-arm-none-eabi \
+    g++-arm-none-eabi \
     libnewlib-arm-none-eabi \
+    libstdc++-arm-none-eabi-newlib \
     dotnet-sdk-8.0 \
     patch \
     && rm -rf /var/lib/apt/lists/* /var/log/apt/* /var/log/dpkg.log /var/log/alternatives.log /var/cache/
