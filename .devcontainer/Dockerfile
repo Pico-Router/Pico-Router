@@ -6,7 +6,7 @@ RUN apt-get update && \
     ca-certificates \
     wget
 
-# FIX MULTI-ARCH BUILD
+# TODO: FIX MULTI-ARCH BUILD
 RUN wget https://builds.renode.io/renode-latest.linux-arm64-portable-dotnet.tar.gz \
     -O /opt/renode.tar.gz
 
@@ -16,7 +16,7 @@ RUN mkdir -p /opt/renode-extracted && \
     --strip-components=1
 
 # stage 2
-FROM mcr.microsoft.com/devcontainers/cpp:noble
+FROM mcr.microsoft.com/devcontainers/cpp:noble AS container-env
 LABEL org.opencontainers.image.source="https://github.com/dodancs/pico-sdk-dev-container"
 
 USER root
@@ -61,12 +61,22 @@ COPY --chown=vscode:vscode third_party/Renode_RP2040_PioSim \
 
 COPY patches/Renode_RP2040/ /tmp/renode-patches/
 
+# FIX BUILD RERUN
 RUN for patch_file in /tmp/renode-patches/*.patch; do \
-    [ -e "$patch_file" ] || continue; \
-    patch \
-    -d /workspaces/pico-router/third_party/Renode_RP2040 \
-    -p1 \
-    < "$patch_file"; \
+        [ -e "$patch_file" ] || continue; \
+        if patch \
+            -d /workspaces/pico-router/third_party/Renode_RP2040 \
+            -p1 \
+            --dry-run \
+            < "$patch_file" >/dev/null 2>&1; then \
+            echo "Applying $patch_file"; \
+            patch \
+                -d /workspaces/pico-router/third_party/Renode_RP2040 \
+                -p1 \
+                < "$patch_file"; \
+        else \
+            echo "Skipping $patch_file (already applied or incompatible)"; \
+        fi; \
     done
 
 RUN dotnet build third_party/Renode_RP2040/emulation/Peripherals.csproj \

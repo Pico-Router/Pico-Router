@@ -39,8 +39,7 @@ done
 
 echo "==> Building devcontainer..."
 
-devcontainer build \
-    --workspace-folder "$REPO_ROOT"
+devcontainer build --workspace-folder "$REPO_ROOT" --no-cache
 
 echo
 echo "========================================"
