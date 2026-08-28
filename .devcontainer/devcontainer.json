@@ -4,7 +4,7 @@
         "dockerfile": "Dockerfile",
         "context": ".."
     },
-    "postCreateCommand": "mkdir -p third_party/Renode_RP2040/piosim && ln -sf /opt/piosim/libpiosim.so third_party/Renode_RP2040/piosim/libpiosim.so",
+    "postStartCommand": "mkdir -p third_party/Renode_RP2040/piosim third_party/Renode_RP2040/emulation/bin && ln -sf /opt/piosim/libpiosim.so third_party/Renode_RP2040/piosim/libpiosim.so && ln -sfn /opt/renode-rp2040/emulation third_party/Renode_RP2040/emulation/bin/Release",
     "customizations": {
         "vscode": {
             "extensions": [
