@@ -50,7 +50,6 @@ ENV PATH="${PATH}:${RENODE_DEST_BUILDER}"
 
 USER vscode
 
-# stage 3
 WORKDIR /workspaces/pico-router
 
 COPY --chown=vscode:vscode third_party/Renode_RP2040 \
@@ -58,26 +57,6 @@ COPY --chown=vscode:vscode third_party/Renode_RP2040 \
 
 COPY --chown=vscode:vscode third_party/Renode_RP2040_PioSim \
     /workspaces/pico-router/third_party/Renode_RP2040_PioSim
-
-COPY patches/Renode_RP2040/ /tmp/renode-patches/
-
-# FIX BUILD RERUN
-RUN for patch_file in /tmp/renode-patches/*.patch; do \
-        [ -e "$patch_file" ] || continue; \
-        if patch \
-            -d /workspaces/pico-router/third_party/Renode_RP2040 \
-            -p1 \
-            --dry-run \
-            < "$patch_file" >/dev/null 2>&1; then \
-            echo "Applying $patch_file"; \
-            patch \
-                -d /workspaces/pico-router/third_party/Renode_RP2040 \
-                -p1 \
-                < "$patch_file"; \
-        else \
-            echo "Skipping $patch_file (already applied or incompatible)"; \
-        fi; \
-    done
 
 RUN dotnet build third_party/Renode_RP2040/emulation/Peripherals.csproj \
     -c Release \
@@ -87,8 +66,12 @@ RUN cmake \
     -S third_party/Renode_RP2040_PioSim \
     -B /tmp/piosim-build \
     -DCMAKE_BUILD_TYPE=Release \
-    && cmake --build \
-    /tmp/piosim-build \
-    -j"$(nproc)" \
-    && cp -fv /tmp/piosim-build/source/libpiosim.so \
-    /workspaces/pico-router/third_party/Renode_RP2040/piosim/
+    && cmake --build /tmp/piosim-build -j"$(nproc)"
+
+USER root
+
+RUN install -Dm755 \
+    /tmp/piosim-build/source/libpiosim.so \
+    /opt/piosim/libpiosim.so
+
+USER vscode
