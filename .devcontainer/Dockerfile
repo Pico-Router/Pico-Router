@@ -3,21 +3,17 @@ FROM ubuntu:24.04 AS renode-downloader
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        ca-certificates \
-        wget
+    ca-certificates \
+    wget
 
-ARG TARGETARCH
-
-RUN if [ "$TARGETARCH" = "arm64" ]; then \
-        wget https://builds.renode.io/renode-latest.linux-arm64-portable-dotnet.tar.gz -O /opt/renode.tar.gz; \
-    else \
-        wget https://builds.renode.io/renode-latest.linux-portable-dotnet.tar.gz -O /opt/renode.tar.gz; \
-    fi
+# FIX MULTI-ARCH BUILD
+RUN wget https://builds.renode.io/renode-latest.linux-arm64-portable-dotnet.tar.gz \
+    -O /opt/renode.tar.gz
 
 RUN mkdir -p /opt/renode-extracted && \
     tar -xf /opt/renode.tar.gz \
-        -C /opt/renode-extracted \
-        --strip-components=1
+    -C /opt/renode-extracted \
+    --strip-components=1
 
 # stage 2
 FROM mcr.microsoft.com/devcontainers/cpp:noble
@@ -66,25 +62,23 @@ COPY --chown=vscode:vscode third_party/Renode_RP2040_PioSim \
 COPY patches/Renode_RP2040/ /tmp/renode-patches/
 
 RUN for patch_file in /tmp/renode-patches/*.patch; do \
-        [ -e "$patch_file" ] || continue; \
-        patch \
-            -d /workspaces/pico-router/third_party/Renode_RP2040 \
-            -p1 \
-            < "$patch_file"; \
+    [ -e "$patch_file" ] || continue; \
+    patch \
+    -d /workspaces/pico-router/third_party/Renode_RP2040 \
+    -p1 \
+    < "$patch_file"; \
     done
 
 RUN dotnet build third_party/Renode_RP2040/emulation/Peripherals.csproj \
-        -c Release \
-        -p:RenodePath=/opt/renode
+    -c Release \
+    -p:RenodePath=/opt/renode
 
 RUN cmake \
-        -S third_party/Renode_RP2040_PioSim \
-        -B /tmp/piosim-build \
-        -DCMAKE_BUILD_TYPE=Release \
+    -S third_party/Renode_RP2040_PioSim \
+    -B /tmp/piosim-build \
+    -DCMAKE_BUILD_TYPE=Release \
     && cmake --build \
-        /tmp/piosim-build \
-        -j"$(nproc)" \
-    && find /tmp/piosim-build \
-        -name 'libpiosim.so' \
-        -type f \
-        -print
+    /tmp/piosim-build \
+    -j"$(nproc)" \
+    && cp -fv /tmp/piosim-build/source/libpiosim.so \
+    /workspaces/pico-router/third_party/Renode_RP2040/piosim/
