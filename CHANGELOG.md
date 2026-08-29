@@ -2,6 +2,7 @@
 * Platform source directory for HAL-related code
 * Platform system init + UART I/O files
 * Quick start demo executable
+* RP2040 Renode emulation
 
 ## Release date: 2026-05-26 Pico Router 0.1.0
 * Docker devcontainer
