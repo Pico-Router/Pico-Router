@@ -33,8 +33,8 @@ if(BUILD_PICO)
     pico_stdlib
   )
 
-  pico_enable_stdio_uart(router 0)
-  pico_enable_stdio_usb(router 1)
+  pico_enable_stdio_uart(router 1)
+  pico_enable_stdio_usb(router 0)
 
   pico_add_extra_outputs(router)
 

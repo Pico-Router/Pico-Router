@@ -1,37 +1,41 @@
 # stage 1
 FROM ubuntu:24.04 AS renode-downloader
 
-ARG TARGETARCH
-ARG RENODE_VERSION=1.16.1
-
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends ca-certificates wget
+    apt-get install -y --no-install-recommends \
+    ca-certificates \
+    wget
 
-RUN if [ "$TARGETARCH" = "arm64" ]; then \
-        RENODE_ARCH="linux-arm64-portable-dotnet"; \
-    else \
-        RENODE_ARCH="linux-dotnet"; \
-    fi && \
-    wget https://github.com/renode/renode/releases/download/v${RENODE_VERSION}/renode-${RENODE_VERSION}.${RENODE_ARCH}.tar.gz -O /opt/renode.tar.gz
+# TODO: FIX MULTI-ARCH BUILD
+RUN wget https://builds.renode.io/renode-latest.linux-arm64-portable-dotnet.tar.gz \
+    -O /opt/renode.tar.gz
 
 RUN mkdir -p /opt/renode-extracted && \
-    tar -xf /opt/renode.tar.gz -C /opt/renode-extracted --strip-components=1
+    tar -xf /opt/renode.tar.gz \
+    -C /opt/renode-extracted \
+    --strip-components=1
 
 # stage 2
-FROM mcr.microsoft.com/devcontainers/base:jammy
+FROM mcr.microsoft.com/devcontainers/cpp:noble AS container-env
 LABEL org.opencontainers.image.source="https://github.com/dodancs/pico-sdk-dev-container"
+
+USER root
 
 ARG RENODE_DEST_BUILDER=/opt/renode
 
-ENV PICO_SDK_VERSION=1.5.0
+ENV PICO_SDK_VERSION=2.3.0
 ENV PICO_SDK_PATH=/opt/pico-sdk
 
-RUN apt update \
-    && apt install -y --no-install-recommends build-essential \
-    cmake gcc-arm-none-eabi \
+RUN mkdir -p /var/cache/apt/archives/partial \
+    && mkdir -p /var/lib/apt/lists/partial \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+    cmake \
+    ninja-build \
     libnewlib-arm-none-eabi \
     libstdc++-arm-none-eabi-newlib \
-    dotnet-runtime-8.0 \
+    dotnet-sdk-8.0 \
+    patch \
     && rm -rf /var/lib/apt/lists/* /var/log/apt/* /var/log/dpkg.log /var/log/alternatives.log /var/cache/
 
 RUN git clone -b ${PICO_SDK_VERSION} https://github.com/raspberrypi/pico-sdk.git /opt/pico-sdk \
@@ -43,3 +47,27 @@ RUN git clone -b ${PICO_SDK_VERSION} https://github.com/raspberrypi/pico-sdk.git
 COPY --from=renode-downloader /opt/renode-extracted ${RENODE_DEST_BUILDER}
 
 ENV PATH="${PATH}:${RENODE_DEST_BUILDER}"
+
+USER vscode
+
+WORKDIR /workspaces/pico-router
+
+COPY --chown=vscode:vscode third_party/Renode_RP2040 \
+    /workspaces/pico-router/third_party/Renode_RP2040
+
+COPY --chown=vscode:vscode third_party/Renode_RP2040_PioSim \
+    /workspaces/pico-router/third_party/Renode_RP2040_PioSim
+
+RUN cmake \
+    -S third_party/Renode_RP2040_PioSim \
+    -B /tmp/piosim-build \
+    -DCMAKE_BUILD_TYPE=Release \
+    && cmake --build /tmp/piosim-build -j"$(nproc)"
+
+USER root
+
+RUN install -Dm755 \
+    /tmp/piosim-build/source/libpiosim.so \
+    /opt/piosim/libpiosim.so
+
+USER vscode

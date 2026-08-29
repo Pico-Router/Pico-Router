@@ -1,6 +1,8 @@
 /*build*/
+*build.log
 .cache
 .DS_Store
+.env
 .venv
 sample_graph.bin
 .mypy_cache

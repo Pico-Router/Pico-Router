@@ -1,8 +1,10 @@
 {
     "name": "Pico Router Dev",
     "build": {
-        "dockerfile": "Dockerfile"
+        "dockerfile": "Dockerfile",
+        "context": ".."
     },
+    "postCreateCommand": "bash .devcontainer/post_create.sh",
     "customizations": {
         "vscode": {
             "extensions": [
