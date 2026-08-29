@@ -5,7 +5,6 @@ build-host
 
 third_party/Renode_RP2040/build
 third_party/Renode_RP2040/tmp
-third_party/Renode_RP2040/emulation/bin
 third_party/Renode_RP2040_PioSim/build
 
 **/build

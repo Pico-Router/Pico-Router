@@ -32,8 +32,6 @@ RUN mkdir -p /var/cache/apt/archives/partial \
     && apt-get install -y --no-install-recommends \
     cmake \
     ninja-build \
-    gcc-arm-none-eabi \
-    g++-arm-none-eabi \
     libnewlib-arm-none-eabi \
     libstdc++-arm-none-eabi-newlib \
     dotnet-sdk-8.0 \
@@ -59,21 +57,6 @@ COPY --chown=vscode:vscode third_party/Renode_RP2040 \
 
 COPY --chown=vscode:vscode third_party/Renode_RP2040_PioSim \
     /workspaces/pico-router/third_party/Renode_RP2040_PioSim
-
-RUN dotnet build \
-    third_party/Renode_RP2040/emulation/Peripherals.csproj \
-    -c Release \
-    -p:RenodePath=/opt/renode \
-    && find third_party/Renode_RP2040/emulation/bin -type f -print
-
-USER root
-
-RUN mkdir -p /opt/renode-rp2040/emulation \
-    && cp -a \
-        /workspaces/pico-router/third_party/Renode_RP2040/emulation/bin/Release/. \
-        /opt/renode-rp2040/emulation/
-
-USER vscode
 
 RUN cmake \
     -S third_party/Renode_RP2040_PioSim \
