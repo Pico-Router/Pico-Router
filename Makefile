@@ -17,7 +17,7 @@ run:
 	./build-host/router
 
 clean:
-	rm -rf build-pico build-host
+	rm -rf build-pico build-host build
 
 renode:
 	renode --console renode/run.resc
