@@ -48,6 +48,8 @@ else()
     src/platform/host/uart_host.cpp
   )
 
+  add_subdirectory(src/benchmarks)
+
 endif()
 
 target_include_directories(router PRIVATE include)

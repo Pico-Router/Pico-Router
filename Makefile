@@ -1,4 +1,4 @@
-.PHONY: build pico host test run clean renode container
+.PHONY: build pico host test run clean renode container bench
 
 build: pico
 
@@ -17,10 +17,15 @@ run:
 	./build-host/router
 
 clean:
-	rm -rf build-pico build-host build
+	rm -rf build*
 
 renode:
 	renode --console renode/run.resc
 
 container:
 	bash .devcontainer/setup.sh
+
+bench:
+	cmake -S . -B build-bench -DBUILD_PICO=OFF
+	cmake --build build-bench --target run_benchmarks
+	./build-bench/src/benchmarks/run_benchmarks

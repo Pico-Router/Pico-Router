@@ -1,56 +1,19 @@
-#include "benchmarks/astar_bench.hpp"
+#include <benchmark/benchmark.h>
 
-#include <stdio.h>
+#include "fixtures/dynamic_grid_graph.hpp"
+#include "pathfind/astar.hpp"
 
-#include <algorithm>
-#include <numeric>
-#include <string>
+static void BM_Astar_Grid100x100(benchmark::State& state) {
+  pathfind::GridConfig config{
+      .width = 100, .height = 100, .obstacle_density = 0.15f, .seed = 42};
+  const pathfind::Graph graph = pathfind::generateGridGraph(config);
+  pathfind::Astar planner;
 
-#include "platform/uart.hpp"
-
-using namespace benchmarks;
-
-void astar_bench::compute() {
-  TimeResults results{};
-  results = time();
-
-  printf("BENCHMARK RESULTS:");
-  printf(R"(
-╔═══════════╦═════════════╗
-║ Exc. Time ║ Nanoseconds ║
-╠═══════════╬═════════════╣
-║ Min       ║ %-11llu ║
-║ Max       ║ %-11llu ║
-║ Avg       ║ %-11llu ║
-╚═══════════╩═════════════╝
-)",
-         (unsigned long long)results.min_time,
-         (unsigned long long)results.max_time,
-         (unsigned long long)results.average_time);
-}
-
-TimeResults astar_bench::time() {
-  // setup
-  steady_clock_timer timer;
-  TimeResults results{};
-  static uint64_t samples[sample_size];
-
-  for (int i = 0; i < sample_size; i++) {
-    // start timer
-    timer.restart();
-    // run algorithm
-    pathfind::Path route = system_.router().calculatePath(bench_graph_, 0, 2);
-    // record time
-    samples[i] = timer.nanoSeconds();
+  for (auto _ : state) {
+    auto path = planner.calculatePath(graph, 0, 9999);
+    benchmark::DoNotOptimize(path);
   }
+}
+BENCHMARK(BM_Astar_Grid100x100);
 
-  // calculate times
-  results.min_time = *std::min_element(samples, samples + sample_size);
-  results.max_time = *std::max_element(samples, samples + sample_size);
-
-  uint64_t total_time =
-      std::accumulate(samples, samples + sample_size, uint64_t(0));
-  results.average_time = (total_time + sample_size / 2) / sample_size;
-
-  return results;
-};
+BENCHMARK_MAIN();
