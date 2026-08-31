@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-#include "fixtures/mock_graphs.hpp"
+#include "fixtures/static_mock_graphs.hpp"
 #include "pathfind/graph.hpp"
 #include "platform/system_init.hpp"
 #include "steady_clock_timer.hpp"

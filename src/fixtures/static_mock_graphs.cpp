@@ -1,4 +1,4 @@
-#include "fixtures/mock_graphs.hpp"
+#include "fixtures/static_mock_graphs.hpp"
 
 #include <memory>
 
