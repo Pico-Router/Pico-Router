@@ -1,4 +1,4 @@
-.PHONY: build build-pico build-host run clean renode container
+.PHONY: build build-pico build-host test run clean renode container
 
 build: build-pico
 
@@ -9,6 +9,9 @@ build-pico:
 build-host:
 	cmake -S . -B build-host -DBUILD_PICO=OFF
 	cmake --build build-host
+
+test: build-host
+	ctest --test-dir build-host/tests --output-on-failure
 
 run:
 	./build-host/router

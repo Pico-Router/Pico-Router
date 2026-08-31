@@ -11,6 +11,8 @@ endif()
 
 project(pico-router C CXX ASM)
 
+include(CTest)
+
 set(COMMON_SOURCES
   src/main.cpp
   src/pathfind/astar.cpp
@@ -64,3 +66,7 @@ if(NOT GIT_VERSION)
 endif()
 
 target_compile_definitions(router PRIVATE LATEST_VERSION="${GIT_VERSION}")
+
+if(BUILD_TESTING)
+  add_subdirectory(tests)
+endif()

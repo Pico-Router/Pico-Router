@@ -7,38 +7,47 @@
 namespace pathfind {
 
 Graph const& createMockGraph(MockGraphType type) {
-  static Graph graph{};
+  static const Graph triangle = [] {
+    Graph graph{};
+
+    // NODE 0
+    graph.nodes[0] = {0, 0, 0, 2};
+    graph.edges[0] = {1, 10};
+    graph.edges[1] = {2, 20};
+
+    // NODE 1
+    graph.nodes[1] = {10, 0, 2, 2};
+    graph.edges[2] = {0, 10};
+    graph.edges[3] = {2, 10};
+
+    // NODE 2
+    graph.nodes[2] = {0, 20, 4, 2};
+    graph.edges[4] = {0, 20};
+    graph.edges[5] = {1, 20};
+
+    return graph;
+  }();
+
+  static const Graph disconnected = [] {
+    Graph graph{};
+
+    // nodes 0 and 1 have no outgoing edges
+    graph.nodes[0] = {0, 0, 0, 0};
+    graph.nodes[1] = {10, 0, 0, 0};
+
+    return graph;
+  }();
 
   switch (type) {
     case MockGraphType::TRIANGLE:
-      // note: nodes are missing x/y coordinates
-      // NODE 0
-      graph.edges[1] = {1, 10, 2};
-      graph.edges[2] = {2, 20, 0};
-      graph.nodes[0].first_edge_index = 1;
-
-      // NODE 1
-      graph.edges[3] = {0, 10, 4};
-      graph.edges[4] = {2, 10, 0};
-      graph.nodes[1].first_edge_index = 3;
-
-      // NODE 2
-      graph.edges[5] = {0, 20, 6};
-      graph.edges[6] = {1, 20, 0};
-      graph.nodes[2].first_edge_index = 5;
-      break;
+      return triangle;
 
     case MockGraphType::DISCONNECTED:
-      // NODE 0
-      graph.nodes[0].first_edge_index = 0;
-      // NODE 1
-      graph.nodes[1].first_edge_index = 0;
-      break;
+      return disconnected;
 
     default:
-      break;
+      return disconnected;
   }
-  return graph;
 }
 
 }  // namespace pathfind

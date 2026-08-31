@@ -10,6 +10,7 @@ add_executable(run_tests
   pathfind/path_test.cpp
 
   ../src/pathfind/astar.cpp
+  ../src/fixtures/mock_graphs.cpp
 )
 
 target_include_directories(run_tests PRIVATE ../include)

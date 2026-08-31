@@ -1,17 +1,17 @@
 #include "pathfind/astar.hpp"
 
-#include <gtest/gtest.hpp>
+#include <gtest/gtest.h>
 
-#include "../fixtures/mock_graphs.cpp"
+#include "fixtures/mock_graphs.hpp"
 
 namespace pathfind {
 namespace {
 
 TEST(AstarOutline, FindsPathInMockGraph) {
   Graph graph = createMockGraph(MockGraphType::TRIANGLE);
-  Astar planner;
+  Astar router;
 
-  Path path = planner.calculatePath(graph, 0, 1);
+  Path path = router.calculatePath(graph, 0, 1);
 
   ASSERT_GT(path.length, 0U);
   EXPECT_EQ(path.nodes[0], 0U);
