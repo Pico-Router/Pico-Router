@@ -17,7 +17,7 @@ set(COMMON_SOURCES
   src/main.cpp
   src/pathfind/astar.cpp
   src/benchmarks/astar_bench.cpp
-  src/fixtures/mock_graphs.cpp
+  src/fixtures/static_mock_graphs.cpp
   src/demo/astar_demo.cpp
 )
 
@@ -51,6 +51,16 @@ else()
 endif()
 
 target_include_directories(router PRIVATE include)
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  target_compile_options(router PRIVATE 
+    -Wall 
+    -Wextra 
+    -Wpedantic
+    -Wconversion
+    -Wshadow
+  )
+endif()
 
 # latest version macro
 execute_process(

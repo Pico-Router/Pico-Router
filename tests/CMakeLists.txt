@@ -7,10 +7,10 @@ FetchContent_MakeAvailable(googletest)
 
 add_executable(run_tests
   pathfind/astar_test.cpp
-  pathfind/path_test.cpp
 
   ../src/pathfind/astar.cpp
-  ../src/fixtures/mock_graphs.cpp
+  ../src/fixtures/static_mock_graphs.cpp
+  ../src/fixtures/dynamic_grid_graph.cpp
 )
 
 target_include_directories(run_tests PRIVATE ../include)
