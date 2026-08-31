@@ -26,20 +26,22 @@ Path Astar::calculatePath(const Graph& graph, node_id start_id,
       return reconstructPath(current.id, start_id);
     }
 
+    closed_list[current.id] = true;
+
     const Node* node = graph.getNode(current.id);
     if (!node) {
-      continue;  // todo: handle invalid node state (nullptr)
+      continue;
     }
 
-    // neighbor_id node expansion through linked list traversal
-    uint32_t edge_index = node->first_edge_index;
-    while (edge_index != 0) {
-      const Edge& edge = graph.edges[edge_index];
+    uint32_t edge_count = node->edge_count;
+    uint32_t edge_offset = node->edge_offset;
+
+    for (int i = 0; i < edge_count; ++i) {
+      const Edge& edge = graph.edges[edge_offset + i];
       node_id neighbor_id = edge.target;
 
       // skip if already in closed list
       if (closed_list[neighbor_id]) {
-        edge_index = edge.next_edge_index;
         continue;
       }
 
@@ -52,11 +54,9 @@ Path Astar::calculatePath(const Graph& graph, node_id start_id,
         came_from_list[neighbor_id] = current.id;
         gScore[neighbor_id] = tentative_g;
         int32_t tentative_f =
-          tentative_g + euclidean_heuristic(graph, neighbor_id, goal_id);
+            tentative_g + euclidean_heuristic(graph, neighbor_id, goal_id);
         open_list.add(neighbor_id, tentative_f);
       }
-
-      edge_index = edge.next_edge_index;
     }
   }
 
