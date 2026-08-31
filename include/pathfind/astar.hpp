@@ -21,8 +21,8 @@ class Astar {
  private:
   std::array<node_id, MAX_NODES> gScore;
 
-  std::array<node_id, MAX_NODES>
-      came_from_list;  // todo: add no parent sentinal
+  // todo: add no parent sentinal
+  std::array<node_id, MAX_NODES> came_from_list;
   PriorityQueue<MAX_NODES> open_list;
   std::bitset<MAX_NODES> closed_list;
   Path reconstructPath(node_id current, node_id start);

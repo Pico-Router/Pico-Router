@@ -4,6 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON) 
 
 option(BUILD_PICO "Build for Raspberry Pi Pico" OFF)
+option(BUILD_BENCH "Build Google Benchmarks" OFF)
 
 if(BUILD_PICO)
   include($ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake)
@@ -11,12 +12,12 @@ endif()
 
 project(pico-router C CXX ASM)
 
+include(CTest)
+
 set(COMMON_SOURCES
   src/main.cpp
   src/pathfind/astar.cpp
-  src/benchmarks/astar_bench.cpp
-  src/fixtures/mock_graphs.cpp
-  src/demo/astar_demo.cpp
+  src/fixtures/static_mock_graphs.cpp
 )
 
 if(BUILD_PICO)
@@ -45,10 +46,24 @@ else()
     src/platform/host/system_init_host.cpp
     src/platform/host/uart_host.cpp
   )
+  
+  if(BUILD_BENCH)
+    add_subdirectory(src/benchmarks)
+  endif()
 
 endif()
 
 target_include_directories(router PRIVATE include)
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  target_compile_options(router PRIVATE 
+    -Wall 
+    -Wextra 
+    -Wpedantic
+    -Wconversion
+    -Wshadow
+  )
+endif()
 
 # latest version macro
 execute_process(
@@ -64,3 +79,7 @@ if(NOT GIT_VERSION)
 endif()
 
 target_compile_definitions(router PRIVATE LATEST_VERSION="${GIT_VERSION}")
+
+if(BUILD_TESTING)
+  add_subdirectory(tests)
+endif()
