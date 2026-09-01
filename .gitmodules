@@ -6,3 +6,7 @@
 	path = third_party/Renode_RP2040_PioSim
 	url = https://github.com/matgla/Renode_RP2040_PioSim.git
 	ignore = all
+[submodule "third_party/pico-sdk"]
+	path = third_party/pico-sdk
+	url = https://github.com/raspberrypi/pico-sdk.git
+	ignore = all
