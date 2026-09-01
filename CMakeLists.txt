@@ -58,7 +58,8 @@ target_include_directories(router PRIVATE include)
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   target_compile_options(router PRIVATE 
     -Wall 
-    -Wextra 
+    -Wextra
+    -Werror
     -Wpedantic
     -Wconversion
     -Wshadow
