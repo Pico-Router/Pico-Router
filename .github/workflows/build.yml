@@ -27,11 +27,9 @@ jobs:
           docker run --rm \
             -v "${{ github.workspace }}:/workspace" \
             -w /workspace \
+            -e PICO_SDK_PATH=/workspace/third_party/pico-sdk \
             ci-image:latest \
             bash -c '
-              cmake -S . -B build-pico \
-                -DBUILD_PICO=ON \
-                -DPICO_SDK_PATH=/workspace/third_party/pico-sdk
-
+              cmake -S . -B build-pico -DBUILD_PICO=ON
               cmake --build build-pico --parallel $(nproc)
             '
