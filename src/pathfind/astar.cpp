@@ -36,7 +36,7 @@ Path Astar::calculatePath(const Graph& graph, node_id start_id,
     uint32_t edge_count = node->edge_count;
     uint32_t edge_offset = node->edge_offset;
 
-    for (int i = 0; i < edge_count; ++i) {
+    for (uint32_t i = 0; i < edge_count; ++i) {
       const Edge& edge = graph.edges[edge_offset + i];
       node_id neighbor_id = edge.target;
 
@@ -47,7 +47,7 @@ Path Astar::calculatePath(const Graph& graph, node_id start_id,
 
       // avoid int overflow
       if (gScore[current.id] == INT32_MAX) continue;
-      int32_t tentative_g = gScore[current.id] + edge.cost;
+      uint32_t tentative_g = gScore[current.id] + edge.cost;
 
       // new best path found
       if (tentative_g < gScore[neighbor_id]) {

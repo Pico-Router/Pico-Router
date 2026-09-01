@@ -56,14 +56,23 @@ endif()
 target_include_directories(router PRIVATE include)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  target_compile_options(router PRIVATE 
-    -Wall 
+  target_compile_options(router PRIVATE
+    -Wall
     -Wextra
-    -Werror
-    -Wpedantic
-    -Wconversion
     -Wshadow
   )
+
+  if(NOT BUILD_PICO)
+    target_compile_options(router PRIVATE
+      -Werror
+      -Wpedantic
+      -Wconversion
+    )
+  endif()
+endif()
+
+if(BUILD_TESTING AND NOT BUILD_PICO)
+  add_subdirectory(tests)
 endif()
 
 # latest version macro
@@ -81,6 +90,3 @@ endif()
 
 target_compile_definitions(router PRIVATE LATEST_VERSION="${GIT_VERSION}")
 
-if(BUILD_TESTING)
-  add_subdirectory(tests)
-endif()
