@@ -23,8 +23,7 @@ USER root
 
 ARG RENODE_DEST_BUILDER=/opt/renode
 
-ENV PICO_SDK_VERSION=2.3.0
-ENV PICO_SDK_PATH=/opt/pico-sdk
+ENV PICO_SDK_PATH=/workspaces/pico-router/third_party/pico-sdk
 
 RUN mkdir -p /var/cache/apt/archives/partial \
     && mkdir -p /var/lib/apt/lists/partial \
@@ -37,12 +36,6 @@ RUN mkdir -p /var/cache/apt/archives/partial \
     dotnet-sdk-8.0 \
     patch \
     && rm -rf /var/lib/apt/lists/* /var/log/apt/* /var/log/dpkg.log /var/log/alternatives.log /var/cache/
-
-RUN git clone -b ${PICO_SDK_VERSION} https://github.com/raspberrypi/pico-sdk.git /opt/pico-sdk \
-    && git -C /opt/pico-sdk submodule update --init \
-    && mkdir /opt/pico-sdk/build \
-    && cd /opt/pico-sdk/build \
-    && cmake ..
 
 COPY --from=renode-downloader /opt/renode-extracted ${RENODE_DEST_BUILDER}
 
