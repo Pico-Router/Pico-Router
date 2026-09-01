@@ -7,6 +7,8 @@ RUN apt-get update \
         ca-certificates \
         cmake \
         git \
+        gcc \
+        g++ \
         gcc-arm-none-eabi \
         libnewlib-arm-none-eabi \
         libstdc++-arm-none-eabi-newlib \
