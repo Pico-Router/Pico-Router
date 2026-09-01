@@ -6,6 +6,7 @@
 * Cache improved graph representation
 * Dynamic grid graph test fixture generation (`generateGridGraph()`)
 * First A* Google Benchmark
+* Dedicated CI container
 
 ## Release date: 2026-05-26 Pico Router 0.1.0
 * Docker devcontainer
