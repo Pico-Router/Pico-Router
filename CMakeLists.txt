@@ -51,6 +51,12 @@ else()
     add_subdirectory(benchmarks)
   endif()
 
+  add_executable(memory_report
+    src/utils/memory_report.cpp
+  )
+
+  target_include_directories(memory_report PRIVATE include)
+
 endif()
 
 target_include_directories(router PRIVATE include)

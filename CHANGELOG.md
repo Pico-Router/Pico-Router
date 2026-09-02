@@ -9,6 +9,7 @@
 * Dedicated CI container
 * Configurable grid graph fixtures with variable size, density and seed
 * Expanded A* benchmarks
+* Memory usage report accessable through `make memory`
 
 ## Release date: 2026-05-26 Pico Router 0.1.0
 * Docker devcontainer

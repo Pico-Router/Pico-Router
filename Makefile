@@ -1,10 +1,11 @@
-.PHONY: build pico host test run clean renode container bench
+.PHONY: build pico host test run clean renode container bench memory
 
 BUILD_DIR := build
 
 PICO_BUILD  := $(BUILD_DIR)/pico
 HOST_BUILD  := $(BUILD_DIR)/host
 BENCH_BUILD := $(BUILD_DIR)/bench
+MEMORY_BUILD := $(BUILD_DIR)/memory
 
 build: pico
 
@@ -46,3 +47,9 @@ bench:
 		--benchmark_counters_tabular=true \
 		--benchmark_out=benchmarks/results/bench-$$(date +%Y%m%d-%H%M%S).json \
 		--benchmark_out_format=json
+
+memory: pico
+	cmake -S . -B $(MEMORY_BUILD) \
+		-DBUILD_PICO=OFF
+	cmake --build $(MEMORY_BUILD) --target memory_report
+	./$(MEMORY_BUILD)/memory_report $(PICO_BUILD)/router.elf
