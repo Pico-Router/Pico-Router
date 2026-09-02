@@ -6,3 +6,4 @@
 .venv
 sample_graph.bin
 .mypy_cache
+/benchmarks/results

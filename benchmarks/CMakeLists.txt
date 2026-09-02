@@ -9,9 +9,10 @@ FetchContent_MakeAvailable(googlebenchmark)
 
 add_executable(run_benchmarks
   astar_bench.cpp
-  ../pathfind/astar.cpp
-  ../fixtures/dynamic_grid_graph.cpp
+  ../src/pathfind/astar.cpp
+  ../src/fixtures/dynamic_grid_graph.cpp
 )
 
-target_include_directories(run_benchmarks PRIVATE ../../include)
+target_include_directories(run_benchmarks PRIVATE ../include)
 target_link_libraries(run_benchmarks PRIVATE benchmark::benchmark)
+target_compile_definitions(run_benchmarks PRIVATE BUILD_BENCH)

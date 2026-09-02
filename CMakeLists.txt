@@ -48,7 +48,7 @@ else()
   )
   
   if(BUILD_BENCH)
-    add_subdirectory(src/benchmarks)
+    add_subdirectory(benchmarks)
   endif()
 
 endif()
@@ -89,4 +89,3 @@ if(NOT GIT_VERSION)
 endif()
 
 target_compile_definitions(router PRIVATE LATEST_VERSION="${GIT_VERSION}")
-
