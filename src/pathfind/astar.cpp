@@ -6,6 +6,11 @@ using namespace pathfind;
 
 Path Astar::calculatePath(const Graph& graph, node_id start_id,
                           node_id goal_id) {
+#ifdef BUILD_BENCH
+  nodes_expanded_ = 0;
+  edges_examined_ = 0;
+#endif
+
   // empty path to return on failure
   Path empty_path;
 
@@ -33,10 +38,17 @@ Path Astar::calculatePath(const Graph& graph, node_id start_id,
       continue;
     }
 
+#ifdef BUILD_BENCH
+    ++nodes_expanded_;
+#endif
+
     uint32_t edge_count = node->edge_count;
     uint32_t edge_offset = node->edge_offset;
 
     for (uint32_t i = 0; i < edge_count; ++i) {
+#ifdef BUILD_BENCH
+      ++edges_examined_;
+#endif
       const Edge& edge = graph.edges[edge_offset + i];
       node_id neighbor_id = edge.target;
 

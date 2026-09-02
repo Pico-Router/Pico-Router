@@ -15,3 +15,4 @@ add_executable(run_benchmarks
 
 target_include_directories(run_benchmarks PRIVATE ../../include)
 target_link_libraries(run_benchmarks PRIVATE benchmark::benchmark)
+target_compile_definitions(run_benchmarks PRIVATE BUILD_BENCH)
