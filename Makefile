@@ -38,6 +38,11 @@ container:
 bench:
 	cmake -S . -B $(BENCH_BUILD) \
 		-DBUILD_PICO=OFF \
-		-DBUILD_BENCH=ON
+		-DBUILD_BENCH=ON \
+		-DCMAKE_BUILD_TYPE=RelWithDebInfo
 	cmake --build $(BENCH_BUILD) --target run_benchmarks
-	./$(BENCH_BUILD)/src/benchmarks/run_benchmarks
+	mkdir -p src/benchmarks/results
+	./$(BENCH_BUILD)/src/benchmarks/run_benchmarks \
+		--benchmark_counters_tabular=true \
+		--benchmark_out=src/benchmarks/results/bench-$$(date +%Y%m%d-%H%M%S).json \
+		--benchmark_out_format=json
