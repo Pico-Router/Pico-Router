@@ -41,8 +41,8 @@ bench:
 		-DBUILD_BENCH=ON \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo
 	cmake --build $(BENCH_BUILD) --target run_benchmarks
-	mkdir -p src/benchmarks/results
-	./$(BENCH_BUILD)/src/benchmarks/run_benchmarks \
+	mkdir -p benchmarks/results
+	./$(BENCH_BUILD)/benchmarks/run_benchmarks \
 		--benchmark_counters_tabular=true \
-		--benchmark_out=src/benchmarks/results/bench-$$(date +%Y%m%d-%H%M%S).json \
+		--benchmark_out=benchmarks/results/bench-$$(date +%Y%m%d-%H%M%S).json \
 		--benchmark_out_format=json
