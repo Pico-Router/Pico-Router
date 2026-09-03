@@ -7,11 +7,13 @@ HOST_BUILD  := $(BUILD_DIR)/host
 BENCH_BUILD := $(BUILD_DIR)/bench
 MEMORY_BUILD := $(BUILD_DIR)/memory
 
+CONFIG_SCRIPT := /workspaces/pico-router/tools/scripts/generate_config_header.py
+RUN_CONFIG = /usr/bin/python3 $(CONFIG_SCRIPT) || (echo "Config generation failed!" && exit 1)
+
 build: pico
 
 pico:
-	/usr/bin/python3 \
-	/workspaces/pico-router/tools/scripts/generate_config_header.py
+	$(RUN_CONFIG)
 	cmake -S . -B $(PICO_BUILD) \
 		-DBUILD_PICO=ON \
 		-DPICO_BOARD=pico \
@@ -19,8 +21,7 @@ pico:
 	cmake --build $(PICO_BUILD) -j
 
 host:
-	/usr/bin/python3 \
-	/workspaces/pico-router/tools/scripts/generate_config_header.py
+	$(RUN_CONFIG)
 	cmake -S . -B $(HOST_BUILD) \
 		-DBUILD_PICO=OFF
 	cmake --build $(HOST_BUILD)
@@ -41,8 +42,7 @@ container:
 	bash .devcontainer/setup.sh
 
 bench:
-	/usr/bin/python3 \
-	/workspaces/pico-router/tools/scripts/generate_config_header.py
+	$(RUN_CONFIG)
 	cmake -S . -B $(BENCH_BUILD) \
 		-DBUILD_PICO=OFF \
 		-DBUILD_BENCH=ON \
