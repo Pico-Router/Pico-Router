@@ -31,8 +31,8 @@ jobs:
             ci-image:latest \
             bash -c '
               /usr/bin/python3 \
-              /workspaces/pico-router/tools/scripts/generate_config_header.py || \
-              (echo "Config generation failed!" && exit 1
+              tools/scripts/generate_config_header.py || \
+              (echo "Config generation failed!" && exit 1)
               cmake -S . -B build-pico -DBUILD_PICO=ON
               cmake --build build-pico --parallel $(nproc)
             '
