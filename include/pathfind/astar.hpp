@@ -2,6 +2,7 @@
 
 #include <bitset>
 
+#include "generated_config.hpp"
 #include "graph.hpp"
 #include "heuristic.hpp"
 #include "path.hpp"
@@ -24,12 +25,12 @@ class Astar {
 #endif
 
  private:
-  std::array<node_id, MAX_NODES> gScore;
+  std::array<node_id, config::MAX_NODES_> gScore;
 
   // todo: add no parent sentinal
-  std::array<node_id, MAX_NODES> came_from_list;
-  PriorityQueue<MAX_NODES> open_list;
-  std::bitset<MAX_NODES> closed_list;
+  std::array<node_id, config::MAX_NODES_> came_from_list;
+  PriorityQueue<config::MAX_NODES_> open_list;
+  std::bitset<config::MAX_NODES_> closed_list;
   Path reconstructPath(node_id current, node_id start);
 
 #ifdef BUILD_BENCH
