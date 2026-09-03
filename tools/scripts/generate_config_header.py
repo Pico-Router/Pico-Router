@@ -66,7 +66,7 @@ def create_content() -> str:
         content = ""
         for section, values in config.items():
             for key, value in values.items():
-                content += f"inline constexpr std::size_t {key} = {value};\n"
+                content += f"inline constexpr std::size_t {key}_ = {value};\n"
         return content
     else:
         print("Failed to write include/pathfind/generated_config.hpp!")
@@ -78,17 +78,19 @@ base_template = f"""
 #pragma once
 
 /**
-This file was auto generated. Do not edit.
-*/
+* This file was auto generated. Do not edit.
+* Use config.json to modify these constants.
+ */
 
 #include <cstddef>
 
 namespace pathfind::config {{
 
 {template_content}
-}}
+}} // namespace pathfind::config
 """
 
 write_out(base_template)
 
 print("Done writing include/pathfind/generated_config.hpp!")
+sys.exit(0) 
