@@ -5,17 +5,17 @@
 #include <array>
 #include <ostream>
 
+#include "generated_config.hpp"
 #include "graph.hpp"
 
 namespace pathfind {
 
 struct Path {
-  static constexpr size_t MAX_PATH_LENGTH = 1000;
-  std::array<node_id, MAX_PATH_LENGTH> nodes{};
+  std::array<node_id, config::MAX_PATH_LENGTH_> nodes{};
   size_t length = 0;
 
   bool add(node_id id) {
-    if (length < MAX_PATH_LENGTH) {
+    if (length < config::MAX_PATH_LENGTH_) {
       nodes[length++] = id;
       return true;
     }

@@ -1,9 +1,11 @@
 #include <cstdio>
 #include <iomanip>
 #include <iostream>
+#include <sstream>
 #include <string>
 
 #include "pathfind/astar.hpp"
+#include "pathfind/generated_config.hpp"
 #include "pathfind/graph.hpp"
 #include "pathfind/path.hpp"
 #include "pathfind/priority_queue.hpp"
@@ -11,6 +13,8 @@
 /**
  * Utility for printing total runtime memory usage.
  */
+
+namespace {
 
 std::string formatBytes(size_t bytes) {
   std::string value = std::to_string(bytes);
@@ -71,6 +75,8 @@ StaticMemory getStaticMemory(const char* elf_path) {
   return {data, bss};
 }
 
+}  // namespace
+
 int main(int argc, char* argv[]) {
   if (argc != 2) {
     std::cerr << "Usage: memory_report <firmware.elf>\n";
@@ -81,7 +87,7 @@ int main(int argc, char* argv[]) {
   constexpr size_t astar_size = sizeof(pathfind::Astar);
   constexpr size_t path_size = sizeof(pathfind::Path);
   constexpr size_t priority_queue_size =
-      sizeof(pathfind::PriorityQueue<pathfind::MAX_NODES>);
+      sizeof(pathfind::PriorityQueue<pathfind::config::MAX_NODES_>);
 
   constexpr size_t fixed_total =
       graph_size + astar_size + path_size + priority_queue_size;

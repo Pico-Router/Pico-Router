@@ -18,6 +18,7 @@ Path Astar::calculatePath(const Graph& graph, node_id start_id,
   open_list.clear();
   closed_list.reset();
   gScore.fill(INT32_MAX);
+  came_from_list.fill(start_id);
 
   gScore[start_id] = 0;
   uint32_t start_heuristic = euclidean_heuristic(graph, start_id, goal_id);

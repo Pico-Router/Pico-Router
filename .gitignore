@@ -6,4 +6,5 @@
 .venv
 sample_graph.bin
 .mypy_cache
-/benchmarks/results
+benchmarks/results
+include/pathfind/generated_config.hpp

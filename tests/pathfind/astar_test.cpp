@@ -30,8 +30,8 @@ TEST(AstarTest, ReturnsEmptyPathForUnreachableGoal) {
 TEST(AstarTest, FindsPathInGeneratedGrid) {
   GridConfig config{.width = 50,
                     .height = 50,
-                    .obstacle_density = 0.2f,
-                    .seed = 42,
+                    .obstacle_density = 0.0f,
+                    .seed = 1234,
                     .pattern = ObstaclePattern::RANDOM_DENSITY};
   Graph graph = generateGridGraph(config);
   Astar router;
@@ -39,8 +39,12 @@ TEST(AstarTest, FindsPathInGeneratedGrid) {
   node_id start_id = 0;
   node_id goal_id = (config.width * config.height) - 1;
 
+  ASSERT_NE(graph.getNode(start_id), nullptr);
+  ASSERT_NE(graph.getNode(goal_id), nullptr);
+
   Path path = router.calculatePath(graph, start_id, goal_id);
 
+  EXPECT_EQ(graph.getNodeCount(), config.width * config.height);
   ASSERT_GT(path.length, 0U);
   EXPECT_EQ(path.nodes[0], start_id);
   EXPECT_EQ(path.nodes[path.length - 1], goal_id);

@@ -2,6 +2,7 @@
 
 #include <random>
 
+#include "pathfind/generated_config.hpp"
 #include "pathfind/graph.hpp"
 
 namespace pathfind {
@@ -30,7 +31,7 @@ void populateNodeEdges(Graph& graph, uint32_t x, uint32_t y,
     int32_t ny = static_cast<int32_t>(y) + dy[i];
 
     if (isInBounds(nx, ny, config.width, config.height)) {
-      if (current_edge_offset >= MAX_EDGES) break;
+      if (current_edge_offset >= config::MAX_EDGES_) break;
 
       uint32_t neighbor_index = toNodeIndex(nx, ny, config.width);
 
@@ -58,7 +59,7 @@ Graph generateGridGraph(const GridConfig& config) {
 
   for (uint32_t y = 0; y < config.height; ++y) {
     for (uint32_t x = 0; x < config.width; ++x) {
-      if (current_node_index >= MAX_NODES) return graph;
+      if (current_node_index >= config::MAX_EDGES_) return graph;
 
       Node& node = graph.nodes[current_node_index];
       node.x = static_cast<int32_t>(x);
@@ -70,6 +71,7 @@ Graph generateGridGraph(const GridConfig& config) {
                         current_node_index, node, obstacle_dist, engine);
 
       current_node_index++;
+      graph.incrementNodeCount();
     }
   }
 

@@ -1,6 +1,9 @@
 {
-    "osm_pbf_path": "data/sample_map.osm.pbf",
-    "output_bin_path": "data/sample_graph.bin",
-    "max_nodes": 10000,
-    "max_edges": 40000
+    "graph": {
+        "MAX_NODES": 2500,
+        "MAX_EDGES": 10000
+    },
+    "path": {
+        "MAX_PATH_LENGTH": 2500
+    }
 }
