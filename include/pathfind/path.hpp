@@ -10,7 +10,7 @@
 namespace pathfind {
 
 struct Path {
-  static constexpr size_t MAX_PATH_LENGTH = 1000;
+  static constexpr size_t MAX_PATH_LENGTH = 2500;
   std::array<node_id, MAX_PATH_LENGTH> nodes{};
   size_t length = 0;
 

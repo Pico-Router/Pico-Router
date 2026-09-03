@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <iomanip>
 #include <iostream>
+#include <sstream>
 #include <string>
 
 #include "pathfind/astar.hpp"
@@ -11,6 +12,8 @@
 /**
  * Utility for printing total runtime memory usage.
  */
+
+namespace {
 
 std::string formatBytes(size_t bytes) {
   std::string value = std::to_string(bytes);
@@ -70,6 +73,8 @@ StaticMemory getStaticMemory(const char* elf_path) {
 
   return {data, bss};
 }
+
+}  // namespace
 
 int main(int argc, char* argv[]) {
   if (argc != 2) {
