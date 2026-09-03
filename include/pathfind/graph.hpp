@@ -8,8 +8,8 @@ namespace pathfind {
 
 using node_id = uint32_t;
 
-static constexpr size_t MAX_NODES = 1000;
-static constexpr size_t MAX_EDGES = 4000;
+static constexpr size_t MAX_NODES = 2500;
+static constexpr size_t MAX_EDGES = 10000;
 
 struct Edge {
   uint32_t target;
@@ -24,6 +24,7 @@ struct Node {
 };
 
 struct Graph {
+ public:
   std::array<Node, MAX_NODES> nodes{};
   std::array<Edge, MAX_EDGES> edges{};
 
@@ -33,6 +34,12 @@ struct Graph {
     }
     return nullptr;
   }
+
+  size_t getNodeCount() const { return node_count_; }
+  void incrementNodeCount() { ++node_count_; }
+
+ private:
+  size_t node_count_ = 0;
 };
 
 }  // namespace pathfind

@@ -70,6 +70,7 @@ Graph generateGridGraph(const GridConfig& config) {
                         current_node_index, node, obstacle_dist, engine);
 
       current_node_index++;
+      graph.incrementNodeCount();
     }
   }
 
