@@ -42,29 +42,28 @@ struct EdgeRange {
 
 struct Graph {
  public:
+  GraphHeader header;
+  std::array<Node, config::MAX_NODES_> nodes{};
+  std::array<Edge, config::MAX_EDGES_> edges{};
+
   const Node* getNode(node_id id) const {
-    if (id < nodes_.size()) {
-      return &nodes_[id];
+    if (id < nodes.size()) {
+      return &nodes[id];
     }
     return nullptr;
   }
 
   EdgeRange getNeighbors(node_id id) const {
-    const Node& node = nodes_[id];
-    return EdgeRange{edges_.data() + node.edge_offset, node.edge_count};
+    const Node& node = nodes[id];
+    return EdgeRange{edges.data() + node.edge_offset, node.edge_count};
   }
 
-  Coordinates getCoordinates(node_id id) const {
-    return nodes_[id].coordinates;
-  }
+  Coordinates getCoordinates(node_id id) const { return nodes[id].coordinates; }
 
   size_t getNodeCount() const { return node_count_; }
   void incrementNodeCount() { ++node_count_; }
 
  private:
-  GraphHeader header;
-  std::array<Node, config::MAX_NODES_> nodes_{};
-  std::array<Edge, config::MAX_EDGES_> edges_{};
   size_t node_count_ = 0;
 };
 

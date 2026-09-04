@@ -62,8 +62,8 @@ Graph generateGridGraph(const GridConfig& config) {
       if (current_node_index >= config::MAX_EDGES_) return graph;
 
       Node& node = graph.nodes[current_node_index];
-      node.x = static_cast<int32_t>(x);
-      node.y = static_cast<int32_t>(y);
+      node.coordinates =
+          Coordinates{static_cast<int32_t>(x), static_cast<int32_t>(y)};
       node.edge_offset = current_edge_offset;
       node.edge_count = 0;
 
