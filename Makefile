@@ -1,4 +1,4 @@
-.PHONY: build pico host test run clean renode container bench memory
+.PHONY: build pico host test run clean renode container bench historic-bench memory
 
 BUILD_DIR := build
 
@@ -8,7 +8,7 @@ BENCH_BUILD := $(BUILD_DIR)/bench
 MEMORY_BUILD := $(BUILD_DIR)/memory
 
 CONFIG_SCRIPT := /workspaces/pico-router/tools/scripts/generate_config_header.py
-RUN_CONFIG = /usr/bin/python3 $(CONFIG_SCRIPT) || (echo "Config generation failed!" && exit 1)
+RUN_CONFIG = python3 $(CONFIG_SCRIPT) || (echo "Config generation failed!" && exit 1)
 
 build: pico
 
@@ -53,6 +53,9 @@ bench:
 		--benchmark_counters_tabular=true \
 		--benchmark_out=benchmarks/results/bench-$$(date +%Y%m%d-%H%M%S).json \
 		--benchmark_out_format=json
+
+historic-bench:
+	python3 tools/scripts/historic_benchmark_runner.py
 
 memory: pico
 	cmake -S . -B $(MEMORY_BUILD) \

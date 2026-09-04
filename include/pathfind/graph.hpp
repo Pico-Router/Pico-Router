@@ -43,7 +43,7 @@ struct EdgeRange {
 
 struct Graph {
  public:
-  GraphHeader header{.format_version = 2};
+  GraphHeader header{2};
   std::array<Node, config::MAX_NODES_> nodes{};
   std::array<Edge, config::MAX_EDGES_> edges{};
 
