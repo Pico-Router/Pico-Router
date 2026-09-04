@@ -46,39 +46,134 @@ def benchmark_results(data: dict) -> dict[str, float]:
 	}
 
 
-def plot_results(results: dict[str, dict[str, float]], output_file: Path) -> None:
+def plot_results(
+	results: dict[str, dict[str, float]],
+	output_file: Path,
+) -> None:
 	try:
 		import matplotlib.pyplot as plt
+		import numpy as np
 	except ImportError as error:
 		raise RuntimeError(
-			"Matplotlib is required to plot historic benchmarks. "
-			"Install it with: python3 -m pip install -r tools/requirements.txt"
+			"Matplotlib and NumPy are required to plot historic benchmarks. "
+			"Install them with: "
+			"python3 -m pip install -r tools/requirements.txt"
 		) from error
 
-	benchmark_names = list(next(iter(results.values())))
-	if any(set(version_results) != set(benchmark_names) for version_results in results.values()):
-		raise ValueError("Historic benchmark versions produced different benchmark names")
+	if not results:
+		raise ValueError("No benchmark results were collected")
 
-	positions = list(range(len(benchmark_names)))
-	figure, axis = plt.subplots(figsize=(10, 6))
-	for version, version_results in results.items():
-		axis.plot(
-			positions,
-			[version_results[name] for name in benchmark_names],
-			marker="o",
-			linewidth=2,
+	benchmark_names = list(next(iter(results.values())))
+
+	if any(
+		set(version_results) != set(benchmark_names)
+		for version_results in results.values()
+	):
+		raise ValueError(
+			"Historic benchmark versions produced different benchmark names"
+		)
+
+	versions = list(results)
+	benchmark_count = len(benchmark_names)
+	version_count = len(versions)
+
+	values = np.array(
+		[
+			[
+				version_results[benchmark_name]
+				for benchmark_name in benchmark_names
+			]
+			for version_results in results.values()
+		],
+		dtype=float,
+	)
+
+	# Normalize each benchmark against the fastest implementation.
+	# A value of 1.0 means "fastest"; 2.0 means "twice as slow".
+	normalized_values = values / values.min(axis=0)
+
+	figure, (runtime_axis, relative_axis) = plt.subplots(
+		2,
+		1,
+		figsize=(11, 8),
+		height_ratios=(2, 1),
+	)
+
+	x = np.arange(benchmark_count)
+	bar_width = 0.8 / version_count
+
+	# ------------------------------------------------------------------
+	# Absolute runtime
+	# ------------------------------------------------------------------
+	for version_index, version in enumerate(versions):
+		offset = (version_index - (version_count - 1) / 2) * bar_width
+
+		bars = runtime_axis.bar(
+			x + offset,
+			values[version_index],
+			width=bar_width,
 			label=version,
 		)
 
-	axis.set_title("Historic A* benchmark comparison")
-	axis.set_xlabel("Benchmark")
-	axis.set_ylabel("Real time (ns)")
-	axis.set_xticks(positions, benchmark_names, rotation=30, ha="right")
-	axis.grid(axis="y", alpha=0.3)
-	axis.legend()
+		for bar, value in zip(bars, values[version_index]):
+			runtime_axis.annotate(
+				f"{value:.3g}",
+				xy=(bar.get_x() + bar.get_width() / 2, bar.get_height()),
+				xytext=(0, 4),
+				textcoords="offset points",
+				ha="center",
+				va="bottom",
+				fontsize=9,
+			)
+
+	runtime_axis.set_title("A* benchmark runtime")
+	runtime_axis.set_ylabel("Real time (ns)")
+	runtime_axis.set_xticks(x, benchmark_names)
+	runtime_axis.set_yscale("log")
+	runtime_axis.grid(axis="y", alpha=0.3)
+	runtime_axis.legend(title="Implementation")
+
+	# ------------------------------------------------------------------
+	# Relative runtime
+	# ------------------------------------------------------------------
+	for version_index, version in enumerate(versions):
+		offset = (version_index - (version_count - 1) / 2) * bar_width
+
+		bars = relative_axis.bar(
+			x + offset,
+			normalized_values[version_index],
+			width=bar_width,
+			label=version,
+		)
+
+		for bar, value in zip(bars, normalized_values[version_index]):
+			relative_axis.annotate(
+				f"{value:.2f}×",
+				xy=(bar.get_x() + bar.get_width() / 2, bar.get_height()),
+				xytext=(0, 4),
+				textcoords="offset points",
+				ha="center",
+				va="bottom",
+				fontsize=9,
+			)
+
+	relative_axis.axhline(
+		1.0,
+		linestyle="--",
+		linewidth=1,
+		label="Fastest result",
+	)
+
+	relative_axis.set_title("Runtime relative to the fastest implementation")
+	relative_axis.set_ylabel("Relative runtime")
+	relative_axis.set_xticks(x, benchmark_names)
+	relative_axis.grid(axis="y", alpha=0.3)
+
+	figure.suptitle("Historic A* implementation comparison", fontsize=14)
 	figure.tight_layout()
-	figure.savefig(output_file, dpi=150)
+	figure.savefig(output_file, dpi=150, bbox_inches="tight")
 	plt.close(figure)
+
 	print(f"Plot written to {output_file}")
 
 
