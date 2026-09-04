@@ -15,29 +15,56 @@ struct Edge {
   uint32_t cost;
 };
 
-struct Node {
+struct Coordinates {
   int32_t x;
   int32_t y;
+};
+
+struct Node {
+  Coordinates coordinates;
   uint32_t edge_offset;
   uint32_t edge_count;
 };
 
+struct GraphHeader {
+  uint32_t format_version;
+  uint32_t header_size;
+  uint32_t graph_size;
+};
+
+struct EdgeRange {
+  const Edge* data;
+  size_t size;
+
+  const Edge* begin() const { return data; }
+  const Edge* end() const { return data + size; }
+};
+
 struct Graph {
  public:
-  std::array<Node, config::MAX_NODES_> nodes{};
-  std::array<Edge, config::MAX_EDGES_> edges{};
-
   const Node* getNode(node_id id) const {
-    if (id < nodes.size()) {
-      return &nodes[id];
+    if (id < nodes_.size()) {
+      return &nodes_[id];
     }
     return nullptr;
+  }
+
+  EdgeRange getNeighbors(node_id id) const {
+    const Node& node = nodes_[id];
+    return EdgeRange{edges_.data() + node.edge_offset, node.edge_count};
+  }
+
+  Coordinates getCoordinates(node_id id) const {
+    return nodes_[id].coordinates;
   }
 
   size_t getNodeCount() const { return node_count_; }
   void incrementNodeCount() { ++node_count_; }
 
  private:
+  GraphHeader header;
+  std::array<Node, config::MAX_NODES_> nodes_{};
+  std::array<Edge, config::MAX_EDGES_> edges_{};
   size_t node_count_ = 0;
 };
 
