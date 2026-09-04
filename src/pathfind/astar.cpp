@@ -34,6 +34,7 @@ Path Astar::calculatePath(const Graph& graph, node_id start_id,
 
     closed_list[current.id] = true;
 
+    // HERE
     const Node* node = graph.getNode(current.id);
     if (!node) {
       continue;
@@ -42,7 +43,7 @@ Path Astar::calculatePath(const Graph& graph, node_id start_id,
 #ifdef BUILD_BENCH
     ++nodes_expanded_;
 #endif
-
+    // HERE
     uint32_t edge_count = node->edge_count;
     uint32_t edge_offset = node->edge_offset;
 
@@ -50,6 +51,7 @@ Path Astar::calculatePath(const Graph& graph, node_id start_id,
 #ifdef BUILD_BENCH
       ++edges_examined_;
 #endif
+      // HERE
       const Edge& edge = graph.edges[edge_offset + i];
       node_id neighbor_id = edge.target;
 
@@ -60,6 +62,7 @@ Path Astar::calculatePath(const Graph& graph, node_id start_id,
 
       // avoid int overflow
       if (gScore[current.id] == INT32_MAX) continue;
+      // HERE
       uint32_t tentative_g = gScore[current.id] + edge.cost;
 
       // new best path found
