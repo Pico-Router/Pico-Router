@@ -5,7 +5,7 @@
 #include <array>
 #include <ostream>
 
-#include "graph.h"
+#include "graph.hpp"
 
 namespace pathfind {
 

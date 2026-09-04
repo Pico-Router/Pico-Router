@@ -1,4 +1,4 @@
-#include "pathfind/astar.hpp"
+#include "astar.hpp"
 
 #include <cassert>
 

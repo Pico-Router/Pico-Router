@@ -3,7 +3,7 @@
 #include <cmath>
 #include <cstdint>
 
-#include "graph.h"
+#include "graph.hpp"
 
 namespace pathfind {
 

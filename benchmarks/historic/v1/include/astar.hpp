@@ -2,10 +2,10 @@
 
 #include <bitset>
 
-#include "graph.h"
-#include "heuristic.h"
-#include "path.h"
-#include "priority_queue.h"
+#include "graph.hpp"
+#include "heuristic.hpp"
+#include "path.hpp"
+#include "priority_queue.hpp"
 
 /**
  * Implementation of A* algorithm
