@@ -1,11 +1,21 @@
 #include <benchmark/benchmark.h>
 
+#include <cstdlib>
+
 #include "fixtures/dynamic_grid_graph.hpp"
 #include "pathfind/astar.hpp"
+#include "pathfind/generated_config.hpp"
 
 static void BM_Astar_Grid(benchmark::State& state) {
   const uint32_t size = state.range(0);
   const float density = static_cast<float>(state.range(1)) / 100.0f;
+
+  if (static_cast<size_t>(size) * size > pathfind::config::MAX_NODES_) {
+    std::fprintf(
+        stderr, "Benchmark requires %zu nodes, but MAX_NODES_ is %zu\n",
+        static_cast<size_t>(size) * size, pathfind::config::MAX_NODES_);
+    std::abort();
+  }
 
   pathfind::GridConfig config{
       .width = size,
