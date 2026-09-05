@@ -4,11 +4,12 @@
 #include <cstddef>
 #include <cstdint>
 
-#include "generated_config.hpp"
-
 namespace pathfind {
 
 using node_id = uint32_t;
+
+static constexpr size_t MAX_NODES = 1000;
+static constexpr size_t MAX_EDGES = 4000;
 
 struct Edge {
   uint32_t target;
@@ -43,9 +44,9 @@ struct EdgeRange {
 
 struct Graph {
  public:
-  GraphHeader header{2};
-  std::array<Node, config::MAX_NODES_> nodes{};
-  std::array<Edge, config::MAX_EDGES_> edges{};
+  GraphHeader header{.format_version = 2};
+  std::array<Node, MAX_NODES> nodes{};
+  std::array<Edge, MAX_EDGES> edges{};
 
   const Node* getNode(node_id id) const {
     if (id < nodes.size()) {

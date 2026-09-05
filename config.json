@@ -1,9 +1,9 @@
 {
     "graph": {
-        "MAX_NODES": 2500,
-        "MAX_EDGES": 10000
+        "MAX_NODES": 10000,
+        "MAX_EDGES": 40000
     },
     "path": {
-        "MAX_PATH_LENGTH": 2500
+        "MAX_PATH_LENGTH": 25000
     }
 }

@@ -3,7 +3,7 @@
 .cache
 .DS_Store
 .env
-.venv
+*venv
 sample_graph.bin
 .mypy_cache
 benchmarks/results
