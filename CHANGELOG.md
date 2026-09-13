@@ -1,9 +1,10 @@
-## UNRELEASED
+## Release date: 2026-09-13 Pico Router 0.2.0
 * Platform source directory for HAL-related code
 * Platform system init + UART I/O files
-* Quick start demo executable
+* Make shortcuts
+* `third_party` pico-sdk, Renode_RP2040, Renode_RP2040_PioSim checkouts
 * RP2040 Renode emulation
-* Cache improved graph representation
+* Cache improved graph representation (CSR)
 * Dynamic grid graph test fixture generation (`generateGridGraph()`)
 * First A* Google Benchmark
 * Dedicated CI container
@@ -12,7 +13,8 @@
 * Memory usage report accessable through `make memory`
 * `generate_config_header.py` generates pre-compiled headers for `config.json`
 * Add historical benchmarking
-* Create `Graph` interface
+* Abstracted `Graph` interface
+* Improved README quickstart guide
 
 ## Release date: 2026-05-26 Pico Router 0.1.0
 * Docker devcontainer
