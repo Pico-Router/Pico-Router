@@ -2,7 +2,7 @@ path add @third_party/Renode_RP2040
 
 include @boards/initialize_raspberry_pico.resc
 
-sysbus LoadELF @build-pico/router.elf
+sysbus LoadELF @build/pico/router.elf
 
 cpu0 PC 0x100001E9
 

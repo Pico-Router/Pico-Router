@@ -17,7 +17,7 @@ include(CTest)
 set(COMMON_SOURCES
   src/main.cpp
   src/pathfind/astar.cpp
-  src/fixtures/static_mock_graphs.cpp
+  src/fixtures/static_mock_graphs.cpp # only temporary
 )
 
 if(BUILD_PICO)
