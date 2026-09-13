@@ -57,12 +57,80 @@ Graph const& createMockGraph(MockGraphType type) {
     return graph;
   }();
 
+  static const Graph grid_5x5 = [] {
+    Graph graph{};
+
+    constexpr uint32_t GRID_SIZE = 5;
+    constexpr uint32_t SPACING = 10;
+    constexpr uint32_t EDGE_COST = 10;
+
+    uint32_t edge_index = 0;
+
+    for (uint32_t y = 0; y < GRID_SIZE; ++y) {
+      for (uint32_t x = 0; x < GRID_SIZE; ++x) {
+        const uint32_t id = y * GRID_SIZE + x;
+
+        graph.nodes[id] = {
+            Coordinates{
+                static_cast<int32_t>(x * SPACING),
+                static_cast<int32_t>(y * SPACING),
+            },
+            edge_index,
+            0,
+        };
+
+        // Left
+        if (x > 0) {
+          graph.edges[edge_index++] = {
+              id - 1,
+              EDGE_COST,
+          };
+          ++graph.nodes[id].edge_count;
+        }
+
+        // Right
+        if (x + 1 < GRID_SIZE) {
+          graph.edges[edge_index++] = {
+              id + 1,
+              EDGE_COST,
+          };
+          ++graph.nodes[id].edge_count;
+        }
+
+        // Up
+        if (y > 0) {
+          graph.edges[edge_index++] = {
+              id - GRID_SIZE,
+              EDGE_COST,
+          };
+          ++graph.nodes[id].edge_count;
+        }
+
+        // Down
+        if (y + 1 < GRID_SIZE) {
+          graph.edges[edge_index++] = {
+              id + GRID_SIZE,
+              EDGE_COST,
+          };
+          ++graph.nodes[id].edge_count;
+        }
+
+        graph.incrementNodeCount();
+      }
+    }
+
+    return graph;
+  }();
+
   switch (type) {
     case MockGraphType::TRIANGLE:
       return triangle;
 
     case MockGraphType::DISCONNECTED:
       return disconnected;
+
+    case MockGraphType::GRID_5X5:
+      return grid_5x5;
 
     default:
       return disconnected;
