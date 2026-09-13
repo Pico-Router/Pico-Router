@@ -40,7 +40,7 @@ void populateNodeEdges(Graph& graph, uint32_t x, uint32_t y,
           current_node_index == (config.height * config.width) - 1 ||
           !is_obstacle) {
         graph.edges[current_edge_offset] =
-            Edge{.target = neighbor_index, .cost = DEFAULT_EDGE_COST};
+            Edge{neighbor_index, DEFAULT_EDGE_COST};
 
         ++current_edge_offset;
         ++node.edge_count;
