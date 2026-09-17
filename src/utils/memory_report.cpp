@@ -16,19 +16,12 @@
 
 namespace {
 
-std::string formatBytes(size_t bytes) {
-  std::string value = std::to_string(bytes);
-
-  for (int i = static_cast<int>(value.size()) - 3; i > 0; i -= 3) {
-    value.insert(static_cast<size_t>(i), ",");
-  }
-
-  return value;
-}
-
 void printRow(const char* name, size_t bytes) {
+  const double kilobytes = static_cast<double>(bytes) / 1024.0;
+
   std::cout << "  " << std::left << std::setw(30) << name << std::right
-            << std::setw(12) << formatBytes(bytes) << " B\n";
+            << std::setw(12) << std::fixed << std::setprecision(2) << kilobytes
+            << " KB\n";
 }
 
 struct StaticMemory {
@@ -106,9 +99,8 @@ int main(int argc, char* argv[]) {
   printRow("Path", path_size);
   printRow("PriorityQueue", priority_queue_size);
 
-  std::cout << "  ---------------------—----------------------\n";
-  std::cout << "  " << std::left << std::setw(30) << "Total" << std::right
-            << std::setw(12) << formatBytes(fixed_total) << " B\n";
+  std::cout << "  --------------------------------------------\n";
+  printRow("Total", fixed_total);
 
   std::cout << "\n";
 
@@ -117,9 +109,8 @@ int main(int argc, char* argv[]) {
   printRow(".data", static_memory.data);
   printRow(".bss", static_memory.bss);
 
-  std::cout << "  ---------------------—----------------------\n";
-  std::cout << "  " << std::left << std::setw(30) << "Total" << std::right
-            << std::setw(12) << formatBytes(static_total) << " B\n";
+  std::cout << "  --------------------------------------------\n";
+  printRow("Total", static_total);
 
   std::cout << "\n";
 
