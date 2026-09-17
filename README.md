@@ -12,7 +12,7 @@ Check out the full documentation [here](https://pico-router-docs.vercel.app/gett
 
 ### Devcontainer
 
-For those who either are planning to use, or want to contribute to Pico Router, it is heavily encouraged utilize the pre-configured devcontainer.
+For those who either are planning to use, or want to contribute to Pico Router, it is heavily encouraged to utilize the pre-configured devcontainer.
 
 #### Prerequisites
 
