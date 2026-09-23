@@ -35,6 +35,8 @@ RUN mkdir -p /var/cache/apt/archives/partial \
     libstdc++-arm-none-eabi-newlib \
     dotnet-sdk-8.0 \
     patch \
+    python3 \
+    python3-pip
     && rm -rf /var/lib/apt/lists/* /var/log/apt/* /var/log/dpkg.log /var/log/alternatives.log /var/cache/
 
 COPY --from=renode-downloader /opt/renode-extracted ${RENODE_DEST_BUILDER}
