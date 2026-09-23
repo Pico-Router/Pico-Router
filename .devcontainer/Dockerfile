@@ -28,7 +28,7 @@ ARG ZEPHYR_SDK_INSTALL_DIR=/opt/zephyr-sdk
 
 ENV PICO_SDK_PATH=/workspaces/pico-router/third_party/pico-sdk
 ENV ZEPHYR_BASE=${ZEPHYR_WORKSPACE}/zephyr
-ENV ZEPHYR_SDK_INSTALL_DIR=${ZEPHYR_SDK_INSTALL_DIR}
+ENV ZEPHYR_SDK_INSTALL_DIR=/opt/zephyr-sdk-0.16.8
 ENV ZEPHYR_TOOLCHAIN_VARIANT=zephyr
 ENV PATH="/opt/zephyr-venv/bin:${PATH}"
 
@@ -65,15 +65,16 @@ RUN python3 -m venv /opt/zephyr-venv \
         --mr ${ZEPHYR_VERSION} \
         ${ZEPHYR_WORKSPACE} \
     && cd ${ZEPHYR_WORKSPACE} \
-    && /opt/zephyr-venv/bin/west config manifest.group-filter "+ci,+min" \
+    && /opt/zephyr-venv/bin/west config manifest.group-filter "+ci,+min,-hal" \
+    && /opt/zephyr-venv/bin/west config manifest.group-filter "+hal_rpi_pico,+cmsis" \
     && /opt/zephyr-venv/bin/west update --narrow \
     && /opt/zephyr-venv/bin/pip install --no-cache-dir -r ${ZEPHYR_WORKSPACE}/zephyr/scripts/requirements.txt \
     && /opt/zephyr-venv/bin/west zephyr-export \
-    && wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.8/zephyr-sdk-0.16.8_linux-x86_64_minimal.tar.xz \
-    && tar -xf zephyr-sdk-0.16.8_linux-x86_64_minimal.tar.xz -C /opt \
+    && wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.8/zephyr-sdk-0.16.8_linux-aarch64_minimal.tar.xz \
+    && tar -xf zephyr-sdk-0.16.8_linux-aarch64_minimal.tar.xz -C /opt \
+    && rm -f zephyr-sdk-0.16.8_linux-aarch64_minimal.tar.xz \
     && cd /opt/zephyr-sdk-0.16.8 \
     && ./setup.sh -t arm-zephyr-eabi -c \
-    && rm -f /opt/zephyr-sdk-0.16.8_linux-x86_64_minimal.tar.xz \
     && chown -R vscode:vscode \
         ${ZEPHYR_WORKSPACE} \
         /opt/zephyr-sdk-0.16.8 \
