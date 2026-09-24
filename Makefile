@@ -1,4 +1,4 @@
-.PHONY: build pico host test run clean renode container bench historic-bench memory
+.PHONY: build pico host test run clean renode container bench historic-bench memory zephyr renode-zephyr
 
 BUILD_DIR := build
 
@@ -62,3 +62,12 @@ memory: pico
 		-DBUILD_PICO=OFF
 	cmake --build $(MEMORY_BUILD) --target memory_report
 	./$(MEMORY_BUILD)/memory_report $(PICO_BUILD)/router.elf
+
+zephyr: 
+	west build -p always \
+	-b rpi_pico \
+	/opt/zephyrproject/zephyr/samples/hello_world \
+	-d /workspaces/pico-router/build/zephyr-hello
+
+renode-zephyr: zephyr
+	renode --console renode/run_zephyr.resc
