@@ -1,0 +1,12 @@
+path add @third_party/Renode_RP2040
+
+include @boards/initialize_raspberry_pico.resc
+
+sysbus LoadELF @build/zephyr/zephyr/zephyr.elf
+
+sysbus.cpu0 VectorTableOffset 0x10000100
+sysbus.cpu1 IsHalted true
+
+showAnalyzer sysbus.uart0
+
+start

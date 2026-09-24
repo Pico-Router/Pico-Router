@@ -1,4 +1,4 @@
-.PHONY: build pico host test run clean renode container bench historic-bench memory
+.PHONY: build pico host test run clean renode container bench historic-bench memory zephyr renode-zephyr
 
 BUILD_DIR := build
 
@@ -6,6 +6,7 @@ PICO_BUILD  := $(BUILD_DIR)/pico
 HOST_BUILD  := $(BUILD_DIR)/host
 BENCH_BUILD := $(BUILD_DIR)/bench
 MEMORY_BUILD := $(BUILD_DIR)/memory
+ZEPHYR_BUILD := $(BUILD_DIR)/zephyr
 
 CONFIG_SCRIPT := /workspaces/pico-router/tools/scripts/generate_config_header.py
 RUN_CONFIG = python3 $(CONFIG_SCRIPT) || (echo "Config generation failed!" && exit 1)
@@ -62,3 +63,12 @@ memory: pico
 		-DBUILD_PICO=OFF
 	cmake --build $(MEMORY_BUILD) --target memory_report
 	./$(MEMORY_BUILD)/memory_report $(PICO_BUILD)/router.elf
+
+zephyr: 
+	west build -p always \
+	-b rpi_pico \
+	zephyr \
+	-d $(ZEPHYR_BUILD)
+
+renode-zephyr: zephyr
+	renode --console renode/run_zephyr.resc

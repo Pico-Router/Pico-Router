@@ -1,3 +1,6 @@
+## Unlreleased
+* Zephyr added as a first-class dependency
+
 ## Release date: 2026-09-13 Pico Router 0.2.0
 * Platform source directory for HAL-related code
 * Platform system init + UART I/O files
