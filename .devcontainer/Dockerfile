@@ -55,7 +55,6 @@ RUN mkdir -p /var/cache/apt/archives/partial \
     python3-venv \
     xz-utils \
     libsdl2-dev \
-    libmagic1 \
     && rm -rf /var/lib/apt/lists/* /var/log/apt/* /var/log/dpkg.log /var/log/alternatives.log /var/cache/
 
 RUN python3 -m venv /opt/zephyr-venv \

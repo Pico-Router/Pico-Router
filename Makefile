@@ -6,6 +6,7 @@ PICO_BUILD  := $(BUILD_DIR)/pico
 HOST_BUILD  := $(BUILD_DIR)/host
 BENCH_BUILD := $(BUILD_DIR)/bench
 MEMORY_BUILD := $(BUILD_DIR)/memory
+ZEPHYR_BUILD := $(BUILD_DIR)/zephyr
 
 CONFIG_SCRIPT := /workspaces/pico-router/tools/scripts/generate_config_header.py
 RUN_CONFIG = python3 $(CONFIG_SCRIPT) || (echo "Config generation failed!" && exit 1)
@@ -66,8 +67,8 @@ memory: pico
 zephyr: 
 	west build -p always \
 	-b rpi_pico \
-	/opt/zephyrproject/zephyr/samples/hello_world \
-	-d /workspaces/pico-router/build/zephyr-hello
+	zephyr/hello_world \
+	-d $(ZEPHYR_BUILD)
 
 renode-zephyr: zephyr
 	renode --console renode/run_zephyr.resc
