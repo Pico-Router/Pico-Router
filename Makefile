@@ -67,7 +67,7 @@ memory: pico
 zephyr: 
 	west build -p always \
 	-b rpi_pico \
-	zephyr/hello_world \
+	zephyr \
 	-d $(ZEPHYR_BUILD)
 
 renode-zephyr: zephyr
