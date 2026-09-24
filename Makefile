@@ -64,7 +64,8 @@ memory: pico
 	cmake --build $(MEMORY_BUILD) --target memory_report
 	./$(MEMORY_BUILD)/memory_report $(PICO_BUILD)/router.elf
 
-zephyr: 
+zephyr:
+	$(RUN_CONFIG)
 	west build -p always \
 	-b rpi_pico \
 	zephyr \
