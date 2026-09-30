@@ -6,8 +6,7 @@ RUN apt-get update && \
     ca-certificates \
     wget
 
-# TODO: FIX MULTI-ARCH BUILD
-RUN wget https://builds.renode.io/renode-latest.linux-arm64-portable-dotnet.tar.gz \
+RUN wget https://builds.renode.io/renode-latest.linux-portable-dotnet.tar.gz \
     -O /opt/renode.tar.gz
 
 RUN mkdir -p /opt/renode-extracted && \
@@ -69,9 +68,9 @@ RUN python3 -m venv /opt/zephyr-venv \
     && /opt/zephyr-venv/bin/west update --narrow \
     && /opt/zephyr-venv/bin/pip install --no-cache-dir -r ${ZEPHYR_WORKSPACE}/zephyr/scripts/requirements.txt \
     && /opt/zephyr-venv/bin/west zephyr-export \
-    && wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.8/zephyr-sdk-0.16.8_linux-aarch64_minimal.tar.xz \
-    && tar -xf zephyr-sdk-0.16.8_linux-aarch64_minimal.tar.xz -C /opt \
-    && rm -f zephyr-sdk-0.16.8_linux-aarch64_minimal.tar.xz \
+    && wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.8/zephyr-sdk-0.16.8_linux-x86_64_minimal.tar.xz \
+    && tar -xf zephyr-sdk-0.16.8_linux-x86_64_minimal.tar.xz -C /opt \
+    && rm -f zephyr-sdk-0.16.8_linux-x86_64_minimal.tar.xz \
     && cd /opt/zephyr-sdk-0.16.8 \
     && ./setup.sh -t arm-zephyr-eabi -c \
     && chown -R vscode:vscode \
